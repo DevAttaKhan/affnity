@@ -1,41 +1,52 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const getEmployee = createAsyncThunk('employee/getData',(arg,{rejectWithValue})=>{
+export const getEmployee = createAsyncThunk(
+  'employee/getData',
+  async (arg, { rejectWithValue }) => {
     try {
-        const data = axios.get('http://savvy.developerpro.co/api/employee/get');
-        console.log(data);        
+      const items = JSON.parse(localStorage.getItem('loginData'));
+      //multi-lvel destructuring
+      const { data: { response } = {} } = await axios.get(
+        'http://savvy.developerpro.co/api/employee/get',
+        {
+          headers: {
+            Authorization: 'Bearer ' + items.token,
+          },
+        }
+      );
+
+      return response;
     } catch (error) {
-        rejectWithValue(error)
+      rejectWithValue(error);
     }
-})
+  }
+);
 
 const employeeSlice = createSlice({
-    name:'employee',
-    initialState:{
-        data:'',
-        isSuccess:false,
-        message:'',
-        loading:false,
+  name: 'employee',
+  initialState: {
+    data: '',
+    isSuccess: false,
+    message: '',
+    loading: false,
+  },
+  reducers: {},
+  extraReducers: {
+    [getEmployee.pending]: (state, { payload }) => {
+      state.loading = true;
     },
-    reducers:{
+    [getEmployee.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.data = payload;
+      state.isSuccess = true;
     },
-    extraReducers:{
-        [getEmployee.pending]:(state,{payload})=>{
-            state.loading = true; 
-        },
-        [getEmployee.fulfilled]:(state,{payload})=>{
-            state.loading = false;
-            state.data = payload;
-            state.isSuccess = true; 
-        },
-        [getEmployee.rejected]:(state,{payload})=>{
-            state.message = payload;
-            state.loading = false;
-            state.isSuccess = false;
-             
-        }
-    }
-})
+    [getEmployee.rejected]: (state, { payload }) => {
+      state.message = payload;
+      state.loading = false;
+      state.isSuccess = false;
+    },
+  },
+});
 
 export default employeeSlice;
