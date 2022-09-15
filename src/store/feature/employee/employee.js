@@ -23,6 +23,17 @@ const employeeSlice = createSlice({
     extraReducers:{
         [getEmployee.pending]:(state,{payload})=>{
             state.loading = true; 
+        },
+        [getEmployee.fulfilled]:(state,{payload})=>{
+            state.loading = false;
+            state.data = payload;
+            state.isSuccess = true; 
+        },
+        [getEmployee.rejected]:(state,{payload})=>{
+            state.message = payload;
+            state.loading = false;
+            state.isSuccess = false;
+             
         }
     }
 })
