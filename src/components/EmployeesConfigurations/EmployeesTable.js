@@ -5,8 +5,9 @@ import Table from '../Table/Table';
 // import Avatar from "../Avatar/Index";
 import Portal from '../Portal/Portal';
 import EmployeeModalForm from './EmployeeModalForm';
-import empData from '../../data/empDB.json';
-import axios from 'axios';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployee } from '../../store/feature/employee/employee';
 
 const columns = [
   { path: 'id', lable: 'S.NO' },
@@ -37,30 +38,24 @@ const columns = [
 
 const EmployeesTable = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [modal, setModal] = useState(false);
-
   const [empState, setEmpState] = useState([]);
-  let tableData = [];
 
-  const items = JSON.parse(localStorage.getItem('loginData'));
+  const emp = useSelector((state) => state.employee);
+
+  console.log(emp);
+  useEffect(() => {
+    dispatch(getEmployee());
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-    axios
-      .get('http://savvy.developerpro.co/api/employee/get', {
-        headers: {
-          Authorization: 'Bearer ' + items.token,
-        },
-      })
-      .then((data) => {
-        /* eslint-disable */
-        tableData = data.data.response.map((item) => {
-          const { id, first_name, last_name, birthdate, contract_date, phone } =
-            item;
-          return { id, first_name, last_name, birthdate, contract_date, phone };
-        });
-        setEmpState(tableData);
-      });
-  }, [empData]);
+    if (emp) setEmpState(emp.data);
+  }, [emp]);
+
+  console.log(empState);
 
   const hideModal = () => {
     setModal(false);
