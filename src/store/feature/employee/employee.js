@@ -6,7 +6,7 @@ export const getEmployee = createAsyncThunk(
   async (arg, { rejectWithValue }) => {
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
-      //multi-lvel destructuring
+      //multi-level
       const { data: { response } = {} } = await axios.get(
         'http://savvy.developerpro.co/api/employee/get',
         {
@@ -49,4 +49,51 @@ const employeeSlice = createSlice({
   },
 });
 
-export default employeeSlice;
+export const getEmployeeType = createAsyncThunk(
+  'employeeType/getData',
+  async (arg, { rejectWithValue }) => {
+    try {
+      const items = JSON.parse(localStorage.getItem('loginData'));
+      //multi-level
+      const { data: { response } = {} } = await axios.get(
+        'http://savvy.developerpro.co/api/employee_type/get',
+        {
+          headers: {
+            Authorization: 'Bearer ' + items.token,
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);
+
+const employeeTypeSlice = createSlice({
+  name: 'employeeType',
+  initialState: {
+    data: '',
+    isSuccess: false,
+    message: '',
+    loading: false,
+  },
+  reducers: {},
+  extraReducers: {
+    [getEmployeeType.pending]: (state, { payload }) => {
+      state.loading = true;
+    },
+    [getEmployeeType.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.data = payload;
+      state.isSuccess = true;
+    },
+    [getEmployeeType.rejected]: (state, { payload }) => {
+      state.message = payload;
+      state.loading = false;
+      state.isSuccess = false;
+    },
+  },
+});
+
+export { employeeSlice, employeeTypeSlice };

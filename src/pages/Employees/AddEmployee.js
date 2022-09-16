@@ -1,94 +1,87 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import CirclePlus from "../../assets/Icons/CirclePlus";
 // import Input from "../../components/Common/Input/Input";
-import empData from '../../data/empDB.json'
-import "./styles.scss";
-import axios from 'axios'
+import empData from '../../data/empDB.json';
+import './styles.scss';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployeeType } from '../../store/feature/employee/employee';
+import { getDepartments } from '../../store/feature/department/department';
+import { getOffices } from '../../store/feature/office/office';
 
 const AddEmployee = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [offices, setOffices] = useState([]);
   const [depts, setDepts] = useState([]);
 
   const [empTypes, setEmpTypes] = useState([]);
-  const [offSelect, setOffSelect] = useState()
-  const [deptSelect, setDeptSelect] = useState()
-  const [empTypeSelect, setEmpTypeSelect] = useState()
+  const [offSelect, setOffSelect] = useState();
+  const [deptSelect, setDeptSelect] = useState();
+  const [empTypeSelect, setEmpTypeSelect] = useState();
 
   const items = JSON.parse(localStorage.getItem('loginData'));
 
   const [state, setState] = useState({
-    "user_id": items.empData.id,
-    "office_id": "",
-    "department_id": "",
-    "shift_id": "1",
-    "employee_type_id": "",
-    "first_name": "",
-    "last_name": "",
-    "birthdate": "",
-    "contract_date": "",
-    "address": "",
-    "phone": "",
-    "is_active": "1",
+    user_id: items.empData.id,
+    office_id: '',
+    department_id: '',
+    shift_id: '1',
+    employee_type_id: '',
+    first_name: '',
+    last_name: '',
+    birthdate: '',
+    contract_date: '',
+    address: '',
+    phone: '',
+    is_active: '1',
   });
 
-  const getOffices = () => {
-    return axios.get('http://savvy.developerpro.co/api/office/get', {
-      headers: {
-        'Authorization': 'Bearer ' + items.token
-      }
-    }).then(data => data.data.response)
-  }
+  useEffect(() => {
+    dispatch(getEmployeeType());
+    dispatch(getDepartments());
+    dispatch(getOffices());
+    // eslint-disable-next-line
+  }, []);
 
-  const getDept = () => {
-    return axios.get('http://savvy.developerpro.co/api/department/get', {
-      headers: {
-        'Authorization': 'Bearer ' + items.token
-      }
-    }).then(res => res.data.response)
-  }
-
-  const getEmpType = () => {
-    return axios.get('http://savvy.developerpro.co/api/employee_type/get', {
-      headers: {
-        'Authorization': 'Bearer ' + items.token
-      }
-    }).then(res => res.data.response)
-  }
+  const empType = useSelector((state) => state.employeeType);
+  const departments = useSelector((state) => state.departments);
+  const office = useSelector((state) => state.offices);
 
   useEffect(() => {
-    if (items) {
-      getOffices().then(res => setOffices(res))
-      getDept().then(res => setDepts(res))
-      getEmpType().then(res => setEmpTypes(res))
-    }
-    /* eslint-disable */
-  }, [])
+    if (empType) setEmpTypes(empType.data);
+    if (departments) setDepts(departments.data);
+    if (office) setOffices(office.data);
+    // eslint-disable-next-line
+  }, [empType, departments, office]);
 
   const handleSubmit = (e) => {
-    axios.post('http://savvy.developerpro.co/api/employee/add', state,{
-      headers: {
-        'Authorization': 'Bearer ' + items.token,
-        'Accept': 'application/json'
-      }
-    }).then(data => console.log(data)).catch(err => console.log(err))
+    axios
+      .post('http://savvy.developerpro.co/api/employee/add', state, {
+        headers: {
+          Authorization: 'Bearer ' + items.token,
+          Accept: 'application/json',
+        },
+      })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
 
     e.preventDefault();
-    navigate("/dashboard/employees/", { replace: true });
+    navigate('/dashboard/employees/', { replace: true });
   };
 
   useEffect(() => {
     if (empData.length > 0) {
-      const id = empData.length + 1
-      setState({ ...state, id: id })
+      const id = empData.length + 1;
+      setState({ ...state, id: id });
     }
     // eslint-disable-next-line
-  }, [empData])
+  }, [empData]);
 
   const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value })
+    setState({ ...state, [e.target.name]: e.target.value });
   };
 
   return (
@@ -127,7 +120,12 @@ const AddEmployee = () => {
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Date of Birth:</label>
-                    <input className="form-control" type="date" name="birthdate" onChange={handleChange} />
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="birthdate"
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Contact Date</label>
@@ -143,7 +141,11 @@ const AddEmployee = () => {
                   <div className="mb-3"></div>
                   <div className="mb-3">
                     <label className="form-label">Address:</label>
-                    <textarea className="form-control" name="address" onChange={handleChange}></textarea>
+                    <textarea
+                      className="form-control"
+                      name="address"
+                      onChange={handleChange}
+                    ></textarea>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Contact</label>
@@ -161,33 +163,71 @@ const AddEmployee = () => {
                   <div className="mb-3">
                     <label className="form-label">Office</label>
                     <div className="dropdown">
-                      <button> {offSelect ? offSelect.name : "Select Office"}</button>
+                      <button>
+                        {offSelect ? offSelect.name : 'Select Office'}
+                      </button>
                       <div className="dropdown-content">
-                        {
-                          offices.map(item => <p key={item.id} onClick={() => { setOffSelect(item); setState({ ...state, "office_id": item.id }) }}>{item.name}</p>)
-                        }
+                        {offices &&
+                          offices.map((item) => (
+                            <p
+                              key={item.id}
+                              onClick={() => {
+                                setOffSelect(item);
+                                setState({ ...state, office_id: item.id });
+                              }}
+                            >
+                              {item.name}
+                            </p>
+                          ))}
                       </div>
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Departments</label>
                     <div className="dropdown">
-                      <button > {deptSelect ? deptSelect.name : "Select Department"}</button>
+                      <button>
+                        {deptSelect ? deptSelect.name : 'Select Department'}
+                      </button>
                       <div className="dropdown-content">
-                        {
-                          depts.map(item => <p key={item.id} onClick={() => { setDeptSelect(item); setState({ ...state, "department_id": item.id }) }}>{item.name}</p>)
-                        }
+                        {depts &&
+                          depts.map((item) => (
+                            <p
+                              key={item.id}
+                              onClick={() => {
+                                setDeptSelect(item);
+                                setState({ ...state, department_id: item.id });
+                              }}
+                            >
+                              {item.name}
+                            </p>
+                          ))}
                       </div>
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Employee Types</label>
                     <div className="dropdown">
-                      <button> {empTypeSelect ? empTypeSelect.type_name : "Select Employee Type"}</button>
+                      <button>
+                        {empTypeSelect
+                          ? empTypeSelect.type_name
+                          : 'Select Employee Type'}
+                      </button>
                       <div className="dropdown-content">
-                        {
-                          empTypes.map(item => <p key={item.id} onClick={() => { setEmpTypeSelect(item); setState({ ...state, "employee_type_id": item.id }) }}>{item.type_name}</p>)
-                        }
+                        {empTypes &&
+                          empTypes.map((item) => (
+                            <p
+                              key={item.id}
+                              onClick={() => {
+                                setEmpTypeSelect(item);
+                                setState({
+                                  ...state,
+                                  employee_type_id: item.id,
+                                });
+                              }}
+                            >
+                              {item.type_name}
+                            </p>
+                          ))}
                       </div>
                     </div>
                   </div>

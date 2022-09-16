@@ -45,7 +45,6 @@ const EmployeesTable = () => {
 
   const emp = useSelector((state) => state.employee);
 
-  console.log(emp);
   useEffect(() => {
     dispatch(getEmployee());
     // eslint-disable-next-line
@@ -54,8 +53,6 @@ const EmployeesTable = () => {
   useEffect(() => {
     if (emp) setEmpState(emp.data);
   }, [emp]);
-
-  console.log(empState);
 
   const hideModal = () => {
     setModal(false);
