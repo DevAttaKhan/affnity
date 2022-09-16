@@ -71,7 +71,6 @@ const EmployeesTable = () => {
           <></>
         )}
       </CardContainer>
-
       {modal && (
         <Portal>
           <div className="modal">

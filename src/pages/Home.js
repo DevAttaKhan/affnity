@@ -1,23 +1,16 @@
-// import './style.scss';
-// import {Link} from "react-router-dom";
-// import AppsIcon from "../../assets/Icons/AppsIcon";
-// import BoxIcon from "../../assets/Icons/BoxIcon";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import ListView from "../components/ListView/indes";
-// import CalendarView from "../components/Calender/index";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import AdminHeading from "../components/AdminHeading/AdminHeading";
-import Card from "../components/Card";
-import StatisticCard from "../components/Layout/StatisticCard";
-import LeaveInfoBox from "../components/LeaveInfoBox/Index";
-import Button from "../components/Button/Index";
-import EmployeesTable from "../components/EmployessTable/Index";
-import LoanTable from "../components/LoanTable/Index";
-import AdvancesTable from "../components/AdvancesTable/Index";
+import AdminHeading from '../components/AdminHeading/AdminHeading';
+import Card from '../components/Card';
+import StatisticCard from '../components/Layout/StatisticCard';
+import LeaveInfoBox from '../components/LeaveInfoBox/Index';
+import Button from '../components/Button/Index';
+import EmployeesTable from '../components/EmployeesConfigurations/EmployeesTable';
+import LoanTable from '../components/LoanTable/Index';
+import AdvancesTable from '../components/AdvancesTable/Index';
 
 const CARDS = {
-  name: "Employees",
+  name: 'Employees',
   count: 218,
   icon: faUser,
 };
