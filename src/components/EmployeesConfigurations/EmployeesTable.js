@@ -44,7 +44,7 @@ const EmployeesTable = () => {
   const [empState, setEmpState] = useState([]);
 
   const emp = useSelector((state) => state.employee);
-
+  console.log(emp);
   useEffect(() => {
     dispatch(getEmployee());
     // eslint-disable-next-line
@@ -65,7 +65,7 @@ const EmployeesTable = () => {
   return (
     <>
       <CardContainer title="Employees" add addOnClick={addEmployee}>
-        {empState.length > 0 ? (
+        {empState && empState.length > 0 ? (
           <Table data={empState} columns={columns} />
         ) : (
           <></>

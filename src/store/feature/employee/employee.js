@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const getEmployee = createAsyncThunk(
   'employee/getData',
@@ -28,7 +29,7 @@ export const postEmployee = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       //multi-level
-      const data = await axios.post(
+      const { status } = await axios.post(
         'http://savvy.developerpro.co/api/employee/add',
         arg,
         {
@@ -37,8 +38,18 @@ export const postEmployee = createAsyncThunk(
           },
         }
       );
-      console.log(data);
-      //      return response;
+      if (status === 200) {
+        toast('User Added', {
+          position: 'bottom-right',
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      return status;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -55,20 +66,6 @@ const getEmployeeSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [postEmployee.pending]: (state) => {
-      state.loading = true;
-    },
-    [postEmployee.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.data = payload;
-      state.isSuccess = true;
-    },
-    [postEmployee.rejected]: (state, { payload }) => {
-      state.message = payload;
-      state.loading = false;
-      state.isSuccess = false;
-    },
-
     [getEmployee.pending]: (state) => {
       state.loading = true;
     },

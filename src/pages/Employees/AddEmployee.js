@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import CirclePlus from "../../assets/Icons/CirclePlus";
-// import Input from "../../components/Common/Input/Input";
+
 import empData from '../../data/empDB.json';
 import './styles.scss';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeeType } from '../../store/feature/employee/employee';
+import {
+  getEmployeeType,
+  postEmployee,
+} from '../../store/feature/employee/employee';
 import { getDepartments } from '../../store/feature/department/department';
 import { getOffices } from '../../store/feature/office/office';
 
@@ -58,15 +59,7 @@ const AddEmployee = () => {
   }, [empType, departments, office]);
 
   const handleSubmit = (e) => {
-    axios
-      .post('http://savvy.developerpro.co/api/employee/add', state, {
-        headers: {
-          Authorization: 'Bearer ' + items.token,
-          Accept: 'application/json',
-        },
-      })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    dispatch(postEmployee(state));
 
     e.preventDefault();
     navigate('/dashboard/employees/', { replace: true });
