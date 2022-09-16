@@ -28,7 +28,7 @@ export const postEmployee = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       //multi-level
-      const { data: { response } = {} } = await axios.post(
+      const data = await axios.post(
         'http://savvy.developerpro.co/api/employee/add',
         arg,
         {
@@ -37,16 +37,16 @@ export const postEmployee = createAsyncThunk(
           },
         }
       );
-
-      return response;
+      console.log(data);
+      //      return response;
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
 
-const employeeSlice = createSlice({
-  name: 'employee',
+const getEmployeeSlice = createSlice({
+  name: 'getEmployee',
   initialState: {
     data: '',
     isSuccess: false,
@@ -78,6 +78,32 @@ const employeeSlice = createSlice({
       state.isSuccess = true;
     },
     [getEmployee.rejected]: (state, { payload }) => {
+      state.message = payload;
+      state.loading = false;
+      state.isSuccess = false;
+    },
+  },
+});
+
+const postEmployeeSlice = createSlice({
+  name: 'postEmployee',
+  initialState: {
+    data: '',
+    isSuccess: false,
+    message: '',
+    loading: false,
+  },
+  reducers: {},
+  extraReducers: {
+    [postEmployee.pending]: (state) => {
+      state.loading = true;
+    },
+    [postEmployee.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.data = payload;
+      state.isSuccess = true;
+    },
+    [postEmployee.rejected]: (state, { payload }) => {
       state.message = payload;
       state.loading = false;
       state.isSuccess = false;
@@ -132,4 +158,4 @@ const employeeTypeSlice = createSlice({
   },
 });
 
-export { employeeSlice, employeeTypeSlice };
+export { getEmployeeSlice, postEmployeeSlice, employeeTypeSlice };
