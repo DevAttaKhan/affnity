@@ -89,8 +89,7 @@ const AddEmployee = () => {
             <form className="w-100" onSubmit={handleSubmit}>
               <div className="row">
                 <div className="input-grid">
-                  <h4 className="card-title">Personal Information</h4>
-
+                  <h4 className="card-title">Official Information</h4>
                   <div className="mb-3">
                     <label className="form-label"> First Name:</label>
                     <input
@@ -112,6 +111,16 @@ const AddEmployee = () => {
                     />
                   </div>
                   <div className="mb-3">
+                    <label className="form-label"> Official Email:</label>
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="official_email"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
                     <label className="form-label">Date of Birth:</label>
                     <input
                       className="form-control"
@@ -121,7 +130,7 @@ const AddEmployee = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Contact Date</label>
+                    <label className="form-label">Contract Date</label>
                     <input
                       className="form-control"
                       type="date"
@@ -131,21 +140,304 @@ const AddEmployee = () => {
                     />
                   </div>
                   <div className="mb-3"></div>
-                  <div className="mb-3"></div>
-                  <div className="mb-3">
-                    <label className="form-label">Address:</label>
-                    <textarea
-                      className="form-control"
-                      name="address"
-                      onChange={handleChange}
-                    ></textarea>
-                  </div>
                   <div className="mb-3">
                     <label className="form-label">Contact</label>
                     <input
                       className="form-control"
                       type="text"
                       name="phone"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Employment Type:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="employment_type"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Grade:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="grade"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Designation:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="designation"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Division:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="division"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Location:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="location"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3"></div>
+                  <div className="mb-3"></div>
+                  <div className="mb-3"></div>
+
+                  <div className="mb-3">
+                    <label className="form-label">Service Start Date:</label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="service_start_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">
+                      Joining Confirmation Date:
+                    </label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="joining_confirmation_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Resign Date:</label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="resign_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">
+                      Leaving Confirmation Date:
+                    </label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="leaving_confirmation_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Contract End Date:</label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="contract_end_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Service End Date:</label>
+                    <input
+                      className="form-control"
+                      type="date"
+                      name="service_end_date"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="input-grid">
+                  <h4 className="card-title">Personal Information</h4>
+                  <div className="mb-3">
+                    <label className="form-label"> Father Name:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="father_name"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Mother Name:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="mother_name"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Gender</label>
+                    <div className="dropdown">
+                      <select name="gender" className="form-control">
+                        <option disabled selected>
+                          Select Gender
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="transgender">Transgender</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Marital Status</label>
+                    <div className="dropdown">
+                      <select name="marital_status" className="form-control">
+                        <option disabled selected>
+                          Select Marital Status
+                        </option>
+                        <option value="single">Single/Bachelor</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widowed">Widowed</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> CNIC:</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      name="cnic"
+                      maxLength={13}
+                      minLength={13}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <br></br>
+                  <div className="mb-3">
+                    <label className="form-label">Permanent Address:</label>
+                    <textarea
+                      className="form-control"
+                      name="permanent_address"
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Present Address:</label>
+                    <textarea
+                      className="form-control"
+                      name="present_ddress"
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> City:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="city"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Blood Group</label>
+                    <div className="dropdown">
+                      <select name="gender" className="form-control">
+                        <option disabled selected>
+                          Select Blood Group
+                        </option>
+                        <option>A Positive</option>
+                        <option value="male">A Negative</option>
+                        <option value="male">A Unknown</option>
+                        <option value="male">B Positive</option>
+                        <option value="male">B Negative</option>
+                        <option value="male">B Unknown</option>
+                        <option value="male">AB Positive</option>
+                        <option value="male">AB Negative</option>
+                        <option value="male">AB Unknown</option>
+                        <option value="male">O Positive</option>
+                        <option value="male">O Negative</option>
+                        <option value="male">O Unknown</option>
+                        <option value="male">Unknown</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Religon</label>
+                    <div className="dropdown">
+                      <select name="gender" className="form-control">
+                        <option disabled selected>
+                          Select religon
+                        </option>
+                        <option value="Islam">Islam</option>
+                        <option value="Christianity">Christianity</option>
+                        <option value="Hinduism">Hinduism</option>
+                        <option value="Sikhism">Sikhism</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="input-grid">
+                  <h4 className="card-title">Accounts Information</h4>
+                  <div className="mb-3">
+                    <label className="form-label"> Bank:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="bank"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Bank Account Number:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="bank_acc_num"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Bank Branch Name:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="bank_branch_name"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Service Status:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="service_status"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label"> Service Period:</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      name="service_period"
                       onChange={handleChange}
                       required
                     />
@@ -224,12 +516,26 @@ const AddEmployee = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="mb-3"></div>
+                  <div className="mb-3">
+                    <label className="form-label">Shift</label>
+                    <div className="dropdown">
+                      <select name="marital_status" className="form-control">
+                        <option disabled selected>
+                          Select Shift
+                        </option>
+                        <option value="first">First</option>
+                        <option value="second">Second</option>
+                        <option value="third">Third</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div>
                 <div>
                   <button type="submit" className=" float-end generic_buttn">
-                    Submit
+                    Add Employee
                   </button>
                 </div>
               </div>

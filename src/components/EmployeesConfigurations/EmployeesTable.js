@@ -44,7 +44,6 @@ const EmployeesTable = () => {
   const [empState, setEmpState] = useState([]);
 
   const emp = useSelector((state) => state.employee);
-  console.log(emp);
   useEffect(() => {
     dispatch(getEmployee());
     // eslint-disable-next-line
