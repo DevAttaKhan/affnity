@@ -25,31 +25,33 @@ export const getEmployee = createAsyncThunk(
 );
 export const postEmployee = createAsyncThunk(
   'employee/postData',
-  async (arg, { rejectWithValue }) => {
+  async ({ addEmp, empDetail }, { rejectWithValue }) => {
     try {
-      const items = JSON.parse(localStorage.getItem('loginData'));
-      //multi-level
-      const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/employee/add',
-        arg,
-        {
-          headers: {
-            Authorization: 'Bearer ' + items.token,
-          },
-        }
-      );
-      if (status === 200) {
-        toast('User Added', {
-          position: 'bottom-right',
-          autoClose: 2500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-      return status;
+      console.log(addEmp);
+      console.log(empDetail);
+      // const items = JSON.parse(localStorage.getItem('loginData'));
+      // //multi-level
+      // const { status } = await axios.post(
+      //   'http://savvy.developerpro.co/api/employee/add',
+      //   arg,
+      //   {
+      //     headers: {
+      //       Authorization: 'Bearer ' + items.token,
+      //     },
+      //   }
+      // );
+      // if (status === 200) {
+      //   toast('User Added', {
+      //     position: 'bottom-right',
+      //     autoClose: 2500,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //   });
+      // }
+      // return status;
     } catch (error) {
       return rejectWithValue(error);
     }

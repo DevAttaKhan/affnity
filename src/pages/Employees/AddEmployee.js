@@ -25,19 +25,49 @@ const AddEmployee = () => {
 
   const items = JSON.parse(localStorage.getItem('loginData'));
 
-  const [state, setState] = useState({
+  const [addEmp, setAddEmp] = useState({
     user_id: items.empData.id,
     office_id: '',
     department_id: '',
-    shift_id: '1',
+    shift_id: '',
     employee_type_id: '',
     first_name: '',
     last_name: '',
-    birthdate: '',
     contract_date: '',
-    address: '',
     phone: '',
     is_active: '1',
+  });
+
+  const [empDetail, setEmpDetail] = useState({
+    father_name: '',
+    mother_name: '',
+    gender: '',
+    marital_status: '',
+    cnic: '',
+    dob: '',
+    age: '',
+    permanent_address: '',
+    present_ddress: '',
+    city: '',
+    blood_group: '',
+    religon: '',
+    service_start_date: '',
+    joining_confirmation_date: '',
+    resign_date: '',
+    leaving_confirmation_date: '',
+    contract_end_date: '',
+    service_end_date: '',
+    bank: '',
+    bank_acc_num: '',
+    bank_branch_name: '',
+    service_status: '',
+    service_period: '',
+    official_email: '',
+    employment_type: '',
+    grade: '',
+    designation: '',
+    location: '',
+    division: '',
   });
 
   useEffect(() => {
@@ -47,9 +77,9 @@ const AddEmployee = () => {
     // eslint-disable-next-line
   }, []);
 
-  const empType = useSelector((state) => state.employeeType);
-  const departments = useSelector((state) => state.departments);
-  const office = useSelector((state) => state.offices);
+  const empType = useSelector((addEmp) => addEmp.employeeType);
+  const departments = useSelector((addEmp) => addEmp.departments);
+  const office = useSelector((addEmp) => addEmp.offices);
 
   useEffect(() => {
     if (empType) setEmpTypes(empType.data);
@@ -59,7 +89,7 @@ const AddEmployee = () => {
   }, [empType, departments, office]);
 
   const handleSubmit = (e) => {
-    dispatch(postEmployee(state));
+    dispatch(postEmployee({ addEmp, empDetail }));
 
     e.preventDefault();
     navigate('/dashboard/employees/', { replace: true });
@@ -68,13 +98,17 @@ const AddEmployee = () => {
   useEffect(() => {
     if (empData.length > 0) {
       const id = empData.length + 1;
-      setState({ ...state, id: id });
+      setAddEmp({ ...addEmp, id: id });
     }
     // eslint-disable-next-line
   }, [empData]);
 
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+  const handleAddChange = (e) => {
+    setAddEmp({ ...addEmp, [e.target.name]: e.target.value });
+  };
+
+  const handleDetailChange = (e) => {
+    setEmpDetail({ ...empDetail, [e.target.name]: e.target.value });
   };
 
   return (
@@ -86,7 +120,7 @@ const AddEmployee = () => {
           </div>
 
           <div className="card-body">
-            <form className="w-100" onSubmit={handleSubmit}>
+            <form className="w-100" noValidate onSubmit={handleSubmit}>
               <div className="row">
                 <div className="input-grid">
                   <h4 className="card-title">Official Information</h4>
@@ -96,7 +130,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="first_name"
-                      onChange={handleChange}
+                      onChange={handleAddChange}
                       required
                     />
                   </div>
@@ -106,7 +140,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="last_name"
-                      onChange={handleChange}
+                      onChange={handleAddChange}
                       required
                     />
                   </div>
@@ -116,7 +150,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="email"
                       name="official_email"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -125,8 +159,8 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="date"
-                      name="birthdate"
-                      onChange={handleChange}
+                      name="dob"
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -135,7 +169,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="contract_date"
-                      onChange={handleChange}
+                      onChange={handleAddChange}
                       required
                     />
                   </div>
@@ -146,7 +180,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="phone"
-                      onChange={handleChange}
+                      onChange={handleAddChange}
                       required
                     />
                   </div>
@@ -156,7 +190,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="employment_type"
-                      onChange={handleChange}
+                      onChange={handleAddChange}
                       required
                     />
                   </div>
@@ -166,7 +200,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="grade"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -176,7 +210,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="designation"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -186,7 +220,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="division"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -196,7 +230,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="location"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -210,7 +244,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="service_start_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -221,7 +255,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="joining_confirmation_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -230,7 +264,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="resign_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -241,7 +275,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="leaving_confirmation_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -250,7 +284,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="contract_end_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                   <div className="mb-3">
@@ -259,7 +293,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="service_end_date"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     />
                   </div>
                 </div>
@@ -271,7 +305,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="father_name"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -281,15 +315,20 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="mother_name"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Gender</label>
                     <div className="dropdown">
-                      <select name="gender" className="form-control">
-                        <option disabled selected>
+                      <select
+                        name="gender"
+                        className="form-control"
+                        onChange={handleDetailChange}
+                        defaultValue={'DEFAULT'}
+                      >
+                        <option value="DEFAULT" disabled>
                           Select Gender
                         </option>
                         <option value="male">Male</option>
@@ -301,8 +340,13 @@ const AddEmployee = () => {
                   <div className="mb-3">
                     <label className="form-label">Marital Status</label>
                     <div className="dropdown">
-                      <select name="marital_status" className="form-control">
-                        <option disabled selected>
+                      <select
+                        name="marital_status"
+                        className="form-control"
+                        onChange={handleDetailChange}
+                        defaultValue={'DEFAULT'}
+                      >
+                        <option value="DEFAULT" disabled>
                           Select Marital Status
                         </option>
                         <option value="single">Single/Bachelor</option>
@@ -320,7 +364,7 @@ const AddEmployee = () => {
                       name="cnic"
                       maxLength={13}
                       minLength={13}
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -330,7 +374,7 @@ const AddEmployee = () => {
                     <textarea
                       className="form-control"
                       name="permanent_address"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     ></textarea>
                   </div>
                   <div className="mb-3">
@@ -338,7 +382,7 @@ const AddEmployee = () => {
                     <textarea
                       className="form-control"
                       name="present_ddress"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                     ></textarea>
                   </div>
                   <div className="mb-3">
@@ -347,38 +391,48 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="city"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Blood Group</label>
                     <div className="dropdown">
-                      <select name="gender" className="form-control">
-                        <option disabled selected>
+                      <select
+                        name="blood_group"
+                        className="form-control"
+                        onChange={handleDetailChange}
+                        defaultValue={'DEFAULT'}
+                      >
+                        <option value="DEFAULT" disabled>
                           Select Blood Group
                         </option>
                         <option>A Positive</option>
-                        <option value="male">A Negative</option>
-                        <option value="male">A Unknown</option>
-                        <option value="male">B Positive</option>
-                        <option value="male">B Negative</option>
-                        <option value="male">B Unknown</option>
-                        <option value="male">AB Positive</option>
-                        <option value="male">AB Negative</option>
-                        <option value="male">AB Unknown</option>
-                        <option value="male">O Positive</option>
-                        <option value="male">O Negative</option>
-                        <option value="male">O Unknown</option>
-                        <option value="male">Unknown</option>
+                        <option value="A Negative">A Negative</option>
+                        <option value="A Unknown">A Unknown</option>
+                        <option value="B Positive">B Positive</option>
+                        <option value="B Negative">B Negative</option>
+                        <option value="B Unknown">B Unknown</option>
+                        <option value="AB Positive">AB Positive</option>
+                        <option value="AB Negative">AB Negative</option>
+                        <option value="AB Unknown">AB Unknown</option>
+                        <option value="O Positive">O Positive</option>
+                        <option value="O Negative">O Negative</option>
+                        <option value="O Unknown">O Unknown</option>
+                        <option value="Unknown">Unknown</option>
                       </select>
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Religon</label>
                     <div className="dropdown">
-                      <select name="gender" className="form-control">
-                        <option disabled selected>
+                      <select
+                        name="religon"
+                        className="form-control"
+                        onChange={handleDetailChange}
+                        defaultValue={'DEFAULT'}
+                      >
+                        <option value="DEFAULT" disabled>
                           Select religon
                         </option>
                         <option value="Islam">Islam</option>
@@ -398,7 +452,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="bank"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -408,7 +462,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="bank_acc_num"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -418,7 +472,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="bank_branch_name"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -428,7 +482,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="service_status"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -438,7 +492,7 @@ const AddEmployee = () => {
                       className="form-control"
                       type="number"
                       name="service_period"
-                      onChange={handleChange}
+                      onChange={handleDetailChange}
                       required
                     />
                   </div>
@@ -458,7 +512,7 @@ const AddEmployee = () => {
                               key={item.id}
                               onClick={() => {
                                 setOffSelect(item);
-                                setState({ ...state, office_id: item.id });
+                                setAddEmp({ ...addEmp, office_id: item.id });
                               }}
                             >
                               {item.name}
@@ -480,7 +534,10 @@ const AddEmployee = () => {
                               key={item.id}
                               onClick={() => {
                                 setDeptSelect(item);
-                                setState({ ...state, department_id: item.id });
+                                setAddEmp({
+                                  ...addEmp,
+                                  department_id: item.id,
+                                });
                               }}
                             >
                               {item.name}
@@ -504,8 +561,8 @@ const AddEmployee = () => {
                               key={item.id}
                               onClick={() => {
                                 setEmpTypeSelect(item);
-                                setState({
-                                  ...state,
+                                setAddEmp({
+                                  ...addEmp,
                                   employee_type_id: item.id,
                                 });
                               }}
@@ -520,13 +577,18 @@ const AddEmployee = () => {
                   <div className="mb-3">
                     <label className="form-label">Shift</label>
                     <div className="dropdown">
-                      <select name="marital_status" className="form-control">
-                        <option disabled selected>
+                      <select
+                        name="shift_id"
+                        className="form-control"
+                        onChange={handleAddChange}
+                        defaultValue={'DEFAULT'}
+                      >
+                        <option value="DEFAULT" disabled>
                           Select Shift
                         </option>
-                        <option value="first">First</option>
-                        <option value="second">Second</option>
-                        <option value="third">Third</option>
+                        <option value="1">First</option>
+                        <option value="1">Second</option>
+                        <option value="1">Third</option>
                       </select>
                     </div>
                   </div>
