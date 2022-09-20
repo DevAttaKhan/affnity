@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import empData from '../../data/empDB.json';
 import './styles.scss';
@@ -14,6 +15,14 @@ import { getOffices } from '../../store/feature/office/office';
 const AddEmployee = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+  });
 
   const [offices, setOffices] = useState([]);
   const [depts, setDepts] = useState([]);
@@ -88,12 +97,12 @@ const AddEmployee = () => {
     // eslint-disable-next-line
   }, [empType, departments, office]);
 
-  const handleSubmit = (e) => {
-    dispatch(postEmployee({ addEmp, empDetail }));
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(postEmployee({ addEmp, empDetail }));
 
-    e.preventDefault();
-    navigate('/dashboard/employees/', { replace: true });
-  };
+  //   //navigate('/dashboard/employees/', { replace: true });
+  // };
 
   useEffect(() => {
     if (empData.length > 0) {
@@ -111,6 +120,8 @@ const AddEmployee = () => {
     setEmpDetail({ ...empDetail, [e.target.name]: e.target.value });
   };
 
+  console.log(errors);
+
   return (
     <div className="row">
       <div className="col-md-12">
@@ -120,7 +131,10 @@ const AddEmployee = () => {
           </div>
 
           <div className="card-body">
-            <form className="w-100" noValidate onSubmit={handleSubmit}>
+            <form
+              onSubmit={handleSubmit((data) => console.log(data))}
+              className="w-100"
+            >
               <div className="row">
                 <div className="input-grid">
                   <h4 className="card-title">Official Information</h4>
@@ -128,40 +142,47 @@ const AddEmployee = () => {
                     <label className="form-label"> First Name:</label>
                     <input
                       className="form-control"
-                      type="text"
-                      name="first_name"
-                      onChange={handleAddChange}
-                      required
+                      {...register('first_name', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Last Name:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="last_name"
-                      onChange={handleAddChange}
-                      required
+                      {...register('last_name', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Official Email:</label>
                     <input
                       className="form-control"
                       type="email"
-                      name="official_email"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('official_email', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Date of Birth:</label>
                     <input
                       className="form-control"
                       type="date"
-                      name="dob"
-                      onChange={handleDetailChange}
+                      {...register('dob', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Contract Date</label>
@@ -169,9 +190,14 @@ const AddEmployee = () => {
                       className="form-control"
                       type="date"
                       name="contract_date"
-                      onChange={handleAddChange}
-                      required
+                      {...register('contract_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3"></div>
                   <div className="mb-3">
@@ -179,40 +205,44 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="phone"
-                      onChange={handleAddChange}
-                      required
+                      {...register('phone', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Employment Type:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="employment_type"
-                      onChange={handleAddChange}
-                      required
+                      {...register('employment_type', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Grade:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="grade"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('grade', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Designation:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="designation"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('designation', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Division:</label>
@@ -220,19 +250,22 @@ const AddEmployee = () => {
                       className="form-control"
                       type="text"
                       name="division"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('division', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Location:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="location"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('location', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3"></div>
                   <div className="mb-3"></div>
@@ -243,9 +276,14 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="date"
-                      name="service_start_date"
-                      onChange={handleDetailChange}
+                      {...register('service_start_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">
@@ -254,18 +292,28 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="date"
-                      name="joining_confirmation_date"
-                      onChange={handleDetailChange}
+                      {...register('joining_confirmation_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Resign Date:</label>
                     <input
                       className="form-control"
                       type="date"
-                      name="resign_date"
-                      onChange={handleDetailChange}
+                      {...register('resign_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">
@@ -274,27 +322,42 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="date"
-                      name="leaving_confirmation_date"
-                      onChange={handleDetailChange}
+                      {...register('leaving_confirmation_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Contract End Date:</label>
                     <input
                       className="form-control"
                       type="date"
-                      name="contract_end_date"
-                      onChange={handleDetailChange}
+                      {...register('contract_end_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Service End Date:</label>
                     <input
                       className="form-control"
                       type="date"
-                      name="service_end_date"
-                      onChange={handleDetailChange}
+                      {...register('service_end_date', {
+                        required: true,
+                        valueAsDate: true,
+                      })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                 </div>
                 <div className="input-grid">
@@ -304,33 +367,31 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="father_name"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('father_name', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Mother Name:</label>
                     <input
                       className="form-control"
                       type="text"
-                      name="mother_name"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('father_name', { required: true })}
                     />
+                    {errors.first_name && (
+                      <p className="error-input">Please enter First Name</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Gender</label>
                     <div className="dropdown">
                       <select
-                        name="gender"
                         className="form-control"
-                        onChange={handleDetailChange}
-                        defaultValue={'DEFAULT'}
+                        {...register('gender', { required: true })}
                       >
-                        <option value="DEFAULT" disabled>
-                          Select Gender
-                        </option>
+                        <option value="">Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="transgender">Transgender</option>
@@ -341,14 +402,10 @@ const AddEmployee = () => {
                     <label className="form-label">Marital Status</label>
                     <div className="dropdown">
                       <select
-                        name="marital_status"
                         className="form-control"
-                        onChange={handleDetailChange}
-                        defaultValue={'DEFAULT'}
+                        {...register('marital_status', { required: true })}
                       >
-                        <option value="DEFAULT" disabled>
-                          Select Marital Status
-                        </option>
+                        <option value="">Select Marital Status</option>
                         <option value="single">Single/Bachelor</option>
                         <option value="married">Married</option>
                         <option value="divorced">Divorced</option>
@@ -364,8 +421,7 @@ const AddEmployee = () => {
                       name="cnic"
                       maxLength={13}
                       minLength={13}
-                      onChange={handleDetailChange}
-                      required
+                      {...register('first_name', { required: true })}
                     />
                   </div>
                   <br></br>
@@ -373,16 +429,14 @@ const AddEmployee = () => {
                     <label className="form-label">Permanent Address:</label>
                     <textarea
                       className="form-control"
-                      name="permanent_address"
-                      onChange={handleDetailChange}
+                      {...register('permanent_address', { required: true })}
                     ></textarea>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Present Address:</label>
                     <textarea
                       className="form-control"
-                      name="present_ddress"
-                      onChange={handleDetailChange}
+                      {...register('present_ddress', { required: true })}
                     ></textarea>
                   </div>
                   <div className="mb-3">
@@ -390,23 +444,17 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="city"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('city', { required: true })}
                     />
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Blood Group</label>
                     <div className="dropdown">
                       <select
-                        name="blood_group"
                         className="form-control"
-                        onChange={handleDetailChange}
-                        defaultValue={'DEFAULT'}
+                        {...register('blood_group', { required: true })}
                       >
-                        <option value="DEFAULT" disabled>
-                          Select Blood Group
-                        </option>
+                        <option value="">Select Blood Group</option>
                         <option>A Positive</option>
                         <option value="A Negative">A Negative</option>
                         <option value="A Unknown">A Unknown</option>
@@ -427,14 +475,10 @@ const AddEmployee = () => {
                     <label className="form-label">Religon</label>
                     <div className="dropdown">
                       <select
-                        name="religon"
                         className="form-control"
-                        onChange={handleDetailChange}
-                        defaultValue={'DEFAULT'}
+                        {...register('religon', { required: true })}
                       >
-                        <option value="DEFAULT" disabled>
-                          Select religon
-                        </option>
+                        <option value="">Select religon</option>
                         <option value="Islam">Islam</option>
                         <option value="Christianity">Christianity</option>
                         <option value="Hinduism">Hinduism</option>
@@ -451,9 +495,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="bank"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('bank', { required: true })}
                     />
                   </div>
                   <div className="mb-3">
@@ -461,9 +503,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="bank_acc_num"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('bank_acc_num', { required: true })}
                     />
                   </div>
                   <div className="mb-3">
@@ -471,9 +511,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="bank_branch_name"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('bank_branch_name', { required: true })}
                     />
                   </div>
                   <div className="mb-3">
@@ -481,9 +519,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="service_status"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('service_status', { required: true })}
                     />
                   </div>
                   <div className="mb-3">
@@ -491,9 +527,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="number"
-                      name="service_period"
-                      onChange={handleDetailChange}
-                      required
+                      {...register('service_period', { required: true })}
                     />
                   </div>
                 </div>
@@ -578,14 +612,10 @@ const AddEmployee = () => {
                     <label className="form-label">Shift</label>
                     <div className="dropdown">
                       <select
-                        name="shift_id"
                         className="form-control"
-                        onChange={handleAddChange}
-                        defaultValue={'DEFAULT'}
+                        {...register('shift_id', { required: true })}
                       >
-                        <option value="DEFAULT" disabled>
-                          Select Shift
-                        </option>
+                        <option value="">Select Shift</option>
                         <option value="1">First</option>
                         <option value="1">Second</option>
                         <option value="1">Third</option>
@@ -596,9 +626,14 @@ const AddEmployee = () => {
               </div>
               <div>
                 <div>
-                  <button type="submit" className=" float-end generic_buttn">
+                  <input
+                    type="submit"
+                    className=" float-end generic_buttn"
+                    value={'Add Employee'}
+                  />
+                  {/* <button type="submit" className=" float-end generic_buttn">
                     Add Employee
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </form>
