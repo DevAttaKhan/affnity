@@ -30,21 +30,6 @@ const AddEmployee = () => {
   const [shift, setShift] = useState();
   const [empType, setEmpTypes] = useState([]);
 
-  const items = JSON.parse(localStorage.getItem('loginData'));
-
-  const [addEmp, setAddEmp] = useState({
-    user_id: items.empData.id,
-    office_id: '',
-    department_id: '',
-    shift_id: '',
-    employee_type_id: '',
-    first_name: '',
-    last_name: '',
-    contract_date: '',
-    phone: '',
-    is_active: '1',
-  });
-
   useEffect(() => {
     dispatch(getEmployeeTypes());
     dispatch(getDepartments());
@@ -73,14 +58,6 @@ const AddEmployee = () => {
     //navigate('/dashboard/employees/', { replace: true });
   };
 
-  useEffect(() => {
-    if (empData.length > 0) {
-      const id = empData.length + 1;
-      setAddEmp({ ...addEmp, id: id });
-    }
-    // eslint-disable-next-line
-  }, [empData]);
-  console.log(errors);
   return (
     <div className="row">
       <div className="col-md-12">
@@ -120,7 +97,7 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="email"
-                      {...register('official_email', { required: true })}
+                      {...register('employee_email', { required: true })}
                     />
                     {errors.official_email && (
                       <p className="error-input">Please enter Official Email</p>

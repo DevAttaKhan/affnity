@@ -25,31 +25,59 @@ export const getEmployee = createAsyncThunk(
 );
 export const postEmployee = createAsyncThunk(
   'employee/postData',
-  async (data, { rejectWithValue }) => {
+  async (empData, { rejectWithValue }) => {
     try {
-      console.log(data);
-      // const items = JSON.parse(localStorage.getItem('loginData'));
-      // //multi-level
-      // const { status } = await axios.post(
-      //   'http://savvy.developerpro.co/api/employee/add',
-      //   arg,
-      //   {
-      //     headers: {
-      //       Authorization: 'Bearer ' + items.token,
-      //     },
-      //   }
-      // );
-      // if (status === 200) {
-      //   toast('User Added', {
-      //     position: 'bottom-right',
-      //     autoClose: 2500,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //   });
-      // }
+      const {
+        office_id,
+        department_id,
+        employee_type_id,
+        shift_id,
+        first_name,
+        last_name,
+        employee_email,
+      } = empData;
+
+      console.log(
+        office_id,
+        department_id,
+        employee_type_id,
+        shift_id,
+        first_name,
+        last_name,
+        employee_email
+      );
+
+      const items = JSON.parse(localStorage.getItem('loginData'));
+      //multi-level
+      const { status, employee } = await axios.post(
+        'http://savvy.developerpro.co/api/employee/add',
+        {
+          office_id,
+          department_id,
+          employee_type_id,
+          shift_id,
+          first_name,
+          last_name,
+          employee_email,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + items.token,
+          },
+        }
+      );
+      console.log(status);
+      if (status === 200) {
+        toast('User Added', {
+          position: 'bottom-right',
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
       // return status;
     } catch (error) {
       return rejectWithValue(error);
