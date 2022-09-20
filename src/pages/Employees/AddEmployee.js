@@ -11,6 +11,7 @@ import {
 } from '../../store/feature/employee/employee';
 import { getDepartments } from '../../store/feature/department/department';
 import { getOffices } from '../../store/feature/office/office';
+import { getShift } from '../../store/feature/shift/shift';
 
 const AddEmployee = () => {
   const navigate = useNavigate();
@@ -26,11 +27,8 @@ const AddEmployee = () => {
 
   const [offices, setOffices] = useState([]);
   const [depts, setDepts] = useState([]);
-
+  const [shift, setShift] = useState();
   const [empTypes, setEmpTypes] = useState([]);
-  const [offSelect, setOffSelect] = useState();
-  const [deptSelect, setDeptSelect] = useState();
-  const [empTypeSelect, setEmpTypeSelect] = useState();
 
   const items = JSON.parse(localStorage.getItem('loginData'));
 
@@ -47,55 +45,59 @@ const AddEmployee = () => {
     is_active: '1',
   });
 
-  const [empDetail, setEmpDetail] = useState({
-    father_name: '',
-    mother_name: '',
-    gender: '',
-    marital_status: '',
-    cnic: '',
-    dob: '',
-    age: '',
-    permanent_address: '',
-    present_ddress: '',
-    city: '',
-    blood_group: '',
-    religon: '',
-    service_start_date: '',
-    joining_confirmation_date: '',
-    resign_date: '',
-    leaving_confirmation_date: '',
-    contract_end_date: '',
-    service_end_date: '',
-    bank: '',
-    bank_acc_num: '',
-    bank_branch_name: '',
-    service_status: '',
-    service_period: '',
-    official_email: '',
-    employment_type: '',
-    grade: '',
-    designation: '',
-    location: '',
-    division: '',
-  });
+  // const [empDetail, setEmpDetail] = useState({
+  //   father_name: '',
+  //   mother_name: '',
+  //   gender: '',
+  //   marital_status: '',
+  //   cnic: '',
+  //   dob: '',
+  //   age: '',
+  //   permanent_address: '',
+  //   present_ddress: '',
+  //   city: '',
+  //   blood_group: '',
+  //   religon: '',
+  //   service_start_date: '',
+  //   joining_confirmation_date: '',
+  //   resign_date: '',
+  //   leaving_confirmation_date: '',
+  //   contract_end_date: '',
+  //   service_end_date: '',
+  //   bank: '',
+  //   bank_acc_num: '',
+  //   bank_branch_name: '',
+  //   service_status: '',
+  //   service_period: '',
+  //   official_email: '',
+  //   employment_type: '',
+  //   grade: '',
+  //   designation: '',
+  //   location: '',
+  //   division: '',
+  // });
 
   useEffect(() => {
     dispatch(getEmployeeType());
     dispatch(getDepartments());
     dispatch(getOffices());
+    dispatch(getShift());
     // eslint-disable-next-line
   }, []);
 
-  const empType = useSelector((addEmp) => addEmp.employeeType);
-  const departments = useSelector((addEmp) => addEmp.departments);
-  const office = useSelector((addEmp) => addEmp.offices);
+  const empType = useSelector((state) => state.employeeType);
+  const departments = useSelector((state) => state.departments);
+  const office = useSelector((state) => state.offices);
+  const shifts = useSelector((state) => state.shift);
 
   useEffect(() => {
     if (empType) setEmpTypes(empType.data);
     if (departments) setDepts(departments.data);
     if (office) setOffices(office.data);
+    if (shifts) setShift(shifts.data);
+
     // eslint-disable-next-line
-  }, [empType, departments, office]);
+  }, [empType, departments, office, shifts]);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -111,16 +113,6 @@ const AddEmployee = () => {
     }
     // eslint-disable-next-line
   }, [empData]);
-
-  const handleAddChange = (e) => {
-    setAddEmp({ ...addEmp, [e.target.name]: e.target.value });
-  };
-
-  const handleDetailChange = (e) => {
-    setEmpDetail({ ...empDetail, [e.target.name]: e.target.value });
-  };
-
-  console.log(errors);
 
   return (
     <div className="row">
@@ -534,77 +526,54 @@ const AddEmployee = () => {
                 <div className="input-grid">
                   <h4 className="card-title">Work Information</h4>
                   <div className="mb-3">
-                    <label className="form-label">Office</label>
+                    <label className="form-label">Offices</label>
                     <div className="dropdown">
-                      <button>
-                        {offSelect ? offSelect.name : 'Select Office'}
-                      </button>
-                      <div className="dropdown-content">
+                      <select
+                        className="form-control"
+                        {...register('office_id', { required: true })}
+                      >
+                        <option value="">Select Office</option>
                         {offices &&
-                          offices.map((item) => (
-                            <p
-                              key={item.id}
-                              onClick={() => {
-                                setOffSelect(item);
-                                setAddEmp({ ...addEmp, office_id: item.id });
-                              }}
-                            >
-                              {item.name}
-                            </p>
+                          offices.map((i) => (
+                            <option key={i.id} value={i.id}>
+                              {i.name}
+                            </option>
                           ))}
-                      </div>
+                      </select>
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Departments</label>
                     <div className="dropdown">
-                      <button>
-                        {deptSelect ? deptSelect.name : 'Select Department'}
-                      </button>
-                      <div className="dropdown-content">
+                      <select
+                        className="form-control"
+                        {...register('department_id', { required: true })}
+                      >
+                        <option value="">Select Department</option>
                         {depts &&
-                          depts.map((item) => (
-                            <p
-                              key={item.id}
-                              onClick={() => {
-                                setDeptSelect(item);
-                                setAddEmp({
-                                  ...addEmp,
-                                  department_id: item.id,
-                                });
-                              }}
-                            >
-                              {item.name}
-                            </p>
+                          depts.map((i) => (
+                            <option key={i.id} value={i.id}>
+                              {i.name}
+                            </option>
                           ))}
-                      </div>
+                      </select>
                     </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Employee Types</label>
                     <div className="dropdown">
-                      <button>
-                        {empTypeSelect
-                          ? empTypeSelect.type_name
-                          : 'Select Employee Type'}
-                      </button>
-                      <div className="dropdown-content">
+                      <select
+                        className="form-control"
+                        {...register('employee_type_id', { required: true })}
+                      >
+                        <option value="">Select Employee Type</option>
                         {empTypes &&
-                          empTypes.map((item) => (
-                            <p
-                              key={item.id}
-                              onClick={() => {
-                                setEmpTypeSelect(item);
-                                setAddEmp({
-                                  ...addEmp,
-                                  employee_type_id: item.id,
-                                });
-                              }}
-                            >
-                              {item.type_name}
-                            </p>
+                          empTypes.map((i) => (
+                            <option key={i.id} value={i.id}>
+                              {i.type_name}
+                            </option>
                           ))}
-                      </div>
+                      </select>
                     </div>
                   </div>
                   <div className="mb-3"></div>
@@ -616,9 +585,12 @@ const AddEmployee = () => {
                         {...register('shift_id', { required: true })}
                       >
                         <option value="">Select Shift</option>
-                        <option value="1">First</option>
-                        <option value="1">Second</option>
-                        <option value="1">Third</option>
+                        {shift &&
+                          shift.map((i) => (
+                            <option key={i.id} value={i.id}>
+                              {i.name}
+                            </option>
+                          ))}
                       </select>
                     </div>
                   </div>
@@ -631,9 +603,6 @@ const AddEmployee = () => {
                     className=" float-end generic_buttn"
                     value={'Add Employee'}
                   />
-                  {/* <button type="submit" className=" float-end generic_buttn">
-                    Add Employee
-                  </button> */}
                 </div>
               </div>
             </form>
