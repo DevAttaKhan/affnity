@@ -6,12 +6,12 @@ import empData from '../../data/empDB.json';
 import './styles.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getEmployeeType,
+  getEmployeeTypes,
   postEmployee,
 } from '../../store/feature/employee/employee';
 import { getDepartments } from '../../store/feature/department/department';
 import { getOffices } from '../../store/feature/office/office';
-import { getShift } from '../../store/feature/shift/shift';
+import { getShifts } from '../../store/feature/shift/shift';
 
 const AddEmployee = () => {
   const navigate = useNavigate();
@@ -78,10 +78,10 @@ const AddEmployee = () => {
   // });
 
   useEffect(() => {
-    dispatch(getEmployeeType());
+    dispatch(getEmployeeTypes());
     dispatch(getDepartments());
     dispatch(getOffices());
-    dispatch(getShift());
+    dispatch(getShifts());
     // eslint-disable-next-line
   }, []);
 
@@ -98,6 +98,8 @@ const AddEmployee = () => {
 
     // eslint-disable-next-line
   }, [empType, departments, office, shifts]);
+
+  console.log(shifts, office);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();

@@ -58,8 +58,8 @@ export const postEmployee = createAsyncThunk(
   }
 );
 
-const getEmployeeSlice = createSlice({
-  name: 'getEmployee',
+const getEmployeesSlice = createSlice({
+  name: 'getEmployees',
   initialState: {
     data: '',
     isSuccess: false,
@@ -110,8 +110,8 @@ const postEmployeeSlice = createSlice({
   },
 });
 
-export const getEmployeeType = createAsyncThunk(
-  'employeeType/getData',
+export const getEmployeeTypes = createAsyncThunk(
+  'employeeTypes/getData',
   async (arg, { rejectWithValue }) => {
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
@@ -131,8 +131,8 @@ export const getEmployeeType = createAsyncThunk(
   }
 );
 
-const employeeTypeSlice = createSlice({
-  name: 'employeeType',
+const employeeTypesSlice = createSlice({
+  name: 'employeeTypes',
   initialState: {
     data: '',
     isSuccess: false,
@@ -141,15 +141,15 @@ const employeeTypeSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [getEmployeeType.pending]: (state, { payload }) => {
+    [getEmployeeTypes.pending]: (state, { payload }) => {
       state.loading = true;
     },
-    [getEmployeeType.fulfilled]: (state, { payload }) => {
+    [getEmployeeTypes.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.data = payload;
       state.isSuccess = true;
     },
-    [getEmployeeType.rejected]: (state, { payload }) => {
+    [getEmployeeTypes.rejected]: (state, { payload }) => {
       state.message = payload;
       state.loading = false;
       state.isSuccess = false;
@@ -157,4 +157,4 @@ const employeeTypeSlice = createSlice({
   },
 });
 
-export { getEmployeeSlice, postEmployeeSlice, employeeTypeSlice };
+export { getEmployeesSlice, postEmployeeSlice, employeeTypesSlice };

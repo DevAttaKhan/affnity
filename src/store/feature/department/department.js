@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getDepartments = createAsyncThunk(
-  'department/getData',
+  'departments/getData',
   async (arg, { rejectWithValue }) => {
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));

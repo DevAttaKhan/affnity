@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getShift = createAsyncThunk(
-  'office/getData',
+export const getShifts = createAsyncThunk(
+  'shifts/getData',
   async (arg, { rejectWithValue }) => {
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
@@ -32,15 +32,15 @@ const shiftSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [getShift.pending]: (state) => {
+    [getShifts.pending]: (state) => {
       state.loading = true;
     },
-    [getShift.fulfilled]: (state, { payload }) => {
+    [getShifts.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.data = payload;
       state.isSuccess = true;
     },
-    [getShift.rejected]: (state, { payload }) => {
+    [getShifts.rejected]: (state, { payload }) => {
       state.message = payload;
       state.loading = false;
       state.isSuccess = false;
