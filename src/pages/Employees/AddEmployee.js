@@ -25,10 +25,10 @@ const AddEmployee = () => {
     reValidateMode: 'onChange',
   });
 
-  const [offices, setOffices] = useState([]);
+  const [office, setOffices] = useState([]);
   const [depts, setDepts] = useState([]);
   const [shift, setShift] = useState();
-  const [empTypes, setEmpTypes] = useState([]);
+  const [empType, setEmpTypes] = useState([]);
 
   const items = JSON.parse(localStorage.getItem('loginData'));
 
@@ -85,19 +85,19 @@ const AddEmployee = () => {
     // eslint-disable-next-line
   }, []);
 
-  const empType = useSelector((state) => state.employeeType);
+  const empTypes = useSelector((state) => state.employeeTypes);
   const departments = useSelector((state) => state.departments);
-  const office = useSelector((state) => state.offices);
-  const shifts = useSelector((state) => state.shift);
+  const offices = useSelector((state) => state.offices);
+  const shifts = useSelector((state) => state.shifts);
 
   useEffect(() => {
-    if (empType) setEmpTypes(empType.data);
+    if (empTypes) setEmpTypes(empTypes.data);
     if (departments) setDepts(departments.data);
-    if (office) setOffices(office.data);
+    if (offices) setOffices(offices.data);
     if (shifts) setShift(shifts.data);
 
     // eslint-disable-next-line
-  }, [empType, departments, office, shifts]);
+  }, [empTypes, departments, offices, shifts]);
 
   console.log(shifts, office);
 
@@ -535,8 +535,8 @@ const AddEmployee = () => {
                         {...register('office_id', { required: true })}
                       >
                         <option value="">Select Office</option>
-                        {offices &&
-                          offices.map((i) => (
+                        {office &&
+                          office.map((i) => (
                             <option key={i.id} value={i.id}>
                               {i.name}
                             </option>
@@ -569,8 +569,8 @@ const AddEmployee = () => {
                         {...register('employee_type_id', { required: true })}
                       >
                         <option value="">Select Employee Type</option>
-                        {empTypes &&
-                          empTypes.map((i) => (
+                        {empType &&
+                          empType.map((i) => (
                             <option key={i.id} value={i.id}>
                               {i.type_name}
                             </option>
