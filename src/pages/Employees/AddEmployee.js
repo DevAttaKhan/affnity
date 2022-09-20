@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import empData from '../../data/empDB.json';
 import './styles.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -55,7 +54,7 @@ const AddEmployee = () => {
   const onSubmit = (data) => {
     dispatch(postEmployee(data));
 
-    //navigate('/dashboard/employees/', { replace: true });
+    navigate('/dashboard/employees/', { replace: true });
   };
 
   return (

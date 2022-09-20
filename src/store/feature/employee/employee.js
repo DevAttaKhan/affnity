@@ -35,23 +35,49 @@ export const postEmployee = createAsyncThunk(
         first_name,
         last_name,
         employee_email,
+        father_name,
+        mother_name,
+        gender,
+        marital_status,
+        cnic,
+        dob,
+        age,
+        permanent_address,
+        present_ddress,
+        city,
+        blood_group,
+        religon,
+        service_start_date,
+        joining_confirmation_date,
+        resign_date,
+        leaving_confirmation_date,
+        contract_end_date,
+        service_end_date,
+        bank,
+        bank_acc_num,
+        bank_branch_name,
+        service_status,
+        service_period,
+        official_email,
+        employment_type,
+        grade,
+        designation,
+        location,
+        division,
       } = empData;
 
-      console.log(
-        office_id,
-        department_id,
-        employee_type_id,
-        shift_id,
-        first_name,
-        last_name,
-        employee_email
-      );
+      const {
+        token,
+        empData: { user_id },
+      } = JSON.parse(localStorage.getItem('loginData'));
 
-      const items = JSON.parse(localStorage.getItem('loginData'));
-      //multi-level
-      const { status, employee } = await axios.post(
+      const {
+        status,
+        data: { employee },
+      } = await axios.post(
         'http://savvy.developerpro.co/api/employee/add',
         {
+          user_id,
           office_id,
           department_id,
           employee_type_id,
@@ -59,26 +85,71 @@ export const postEmployee = createAsyncThunk(
           first_name,
           last_name,
           employee_email,
+          is_active: '1',
         },
         {
           headers: {
-            Authorization: 'Bearer ' + items.token,
+            Authorization: 'Bearer ' + token,
           },
         }
       );
-      console.log(status);
-      if (status === 200) {
-        toast('User Added', {
-          position: 'bottom-right',
-          autoClose: 2500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      console.log(status, employee);
+      if (status === 200 && employee) {
+        const { id } = employee;
+        const res = await axios.post(
+          'http://savvy.developerpro.co/api/employee_details/add',
+          {
+            id,
+            father_name,
+            mother_name,
+            gender,
+            marital_status,
+            cnic,
+            dob,
+            age,
+            permanent_address,
+            present_ddress,
+            city,
+            blood_group,
+            religon,
+            service_start_date,
+            joining_confirmation_date,
+            resign_date,
+            leaving_confirmation_date,
+            contract_end_date,
+            service_end_date,
+            bank,
+            bank_acc_num,
+            bank_branch_name,
+            service_status,
+            service_period,
+            official_email,
+            employment_type,
+            grade,
+            designation,
+            location,
+            division,
+          },
+          {
+            headers: {
+              Authorization: 'Bearer ' + token,
+            },
+          }
+        );
+        console.log(res);
+        if (res.status === 200) {
+          toast('User Added', {
+            position: 'bottom-right',
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return res.status;
+        }
       }
-      // return status;
     } catch (error) {
       return rejectWithValue(error);
     }
