@@ -25,10 +25,9 @@ export const getEmployee = createAsyncThunk(
 );
 export const postEmployee = createAsyncThunk(
   'employee/postData',
-  async ({ addEmp, empDetail }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      console.log(addEmp);
-      console.log(empDetail);
+      console.log(data);
       // const items = JSON.parse(localStorage.getItem('loginData'));
       // //multi-level
       // const { status } = await axios.post(

@@ -45,38 +45,6 @@ const AddEmployee = () => {
     is_active: '1',
   });
 
-  // const [empDetail, setEmpDetail] = useState({
-  //   father_name: '',
-  //   mother_name: '',
-  //   gender: '',
-  //   marital_status: '',
-  //   cnic: '',
-  //   dob: '',
-  //   age: '',
-  //   permanent_address: '',
-  //   present_ddress: '',
-  //   city: '',
-  //   blood_group: '',
-  //   religon: '',
-  //   service_start_date: '',
-  //   joining_confirmation_date: '',
-  //   resign_date: '',
-  //   leaving_confirmation_date: '',
-  //   contract_end_date: '',
-  //   service_end_date: '',
-  //   bank: '',
-  //   bank_acc_num: '',
-  //   bank_branch_name: '',
-  //   service_status: '',
-  //   service_period: '',
-  //   official_email: '',
-  //   employment_type: '',
-  //   grade: '',
-  //   designation: '',
-  //   location: '',
-  //   division: '',
-  // });
-
   useEffect(() => {
     dispatch(getEmployeeTypes());
     dispatch(getDepartments());
@@ -99,14 +67,11 @@ const AddEmployee = () => {
     // eslint-disable-next-line
   }, [empTypes, departments, offices, shifts]);
 
-  console.log(shifts, office);
+  const onSubmit = (data) => {
+    dispatch(postEmployee(data));
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(postEmployee({ addEmp, empDetail }));
-
-  //   //navigate('/dashboard/employees/', { replace: true });
-  // };
+    //navigate('/dashboard/employees/', { replace: true });
+  };
 
   useEffect(() => {
     if (empData.length > 0) {
@@ -115,7 +80,7 @@ const AddEmployee = () => {
     }
     // eslint-disable-next-line
   }, [empData]);
-
+  console.log(errors);
   return (
     <div className="row">
       <div className="col-md-12">
@@ -125,10 +90,7 @@ const AddEmployee = () => {
           </div>
 
           <div className="card-body">
-            <form
-              onSubmit={handleSubmit((data) => console.log(data))}
-              className="w-100"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="w-100">
               <div className="row">
                 <div className="input-grid">
                   <h4 className="card-title">Official Information</h4>
@@ -149,8 +111,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('last_name', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.last_name && (
+                      <p className="error-input">Please enter Last Name</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -160,8 +122,8 @@ const AddEmployee = () => {
                       type="email"
                       {...register('official_email', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.official_email && (
+                      <p className="error-input">Please enter Official Email</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -174,8 +136,8 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.dob && (
+                      <p className="error-input">Please enter Date of Birth</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -183,14 +145,13 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="date"
-                      name="contract_date"
                       {...register('contract_date', {
                         required: true,
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.contract_date && (
+                      <p className="error-input">Please enter Contract Date</p>
                     )}
                   </div>
                   <div className="mb-3"></div>
@@ -201,8 +162,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('phone', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.phone && (
+                      <p className="error-input">Please enter Phone</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -212,8 +173,10 @@ const AddEmployee = () => {
                       type="text"
                       {...register('employment_type', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.employment_type && (
+                      <p className="error-input">
+                        Please enter Employment Type
+                      </p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -223,8 +186,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('grade', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.grade && (
+                      <p className="error-input">Please enter Grade</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -234,8 +197,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('designation', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.designation && (
+                      <p className="error-input">Please enter Designation</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -243,11 +206,10 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      name="division"
                       {...register('division', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.division && (
+                      <p className="error-input">Please enter Division</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -257,8 +219,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('location', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.location && (
+                      <p className="error-input">Please enter Location</p>
                     )}
                   </div>
                   <div className="mb-3"></div>
@@ -275,8 +237,10 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.service_start_date && (
+                      <p className="error-input">
+                        Please enter Service Start Date
+                      </p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -291,8 +255,10 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.joining_confirmation_date && (
+                      <p className="error-input">
+                        Please enter Joining Confirmation Date
+                      </p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -305,8 +271,8 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.resign_date && (
+                      <p className="error-input">Please enter Resign Date</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -321,8 +287,10 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.leaving_confirmation_date && (
+                      <p className="error-input">
+                        Please enter Leaving Confirmation Date
+                      </p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -335,8 +303,10 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.contract_end_date && (
+                      <p className="error-input">
+                        Please enter Contract End Date
+                      </p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -349,8 +319,10 @@ const AddEmployee = () => {
                         valueAsDate: true,
                       })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.service_end_date && (
+                      <p className="error-input">
+                        Please enter Service End Date
+                      </p>
                     )}
                   </div>
                 </div>
@@ -363,8 +335,8 @@ const AddEmployee = () => {
                       type="text"
                       {...register('father_name', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.father_name && (
+                      <p className="error-input">Please enter Father Name</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -372,10 +344,10 @@ const AddEmployee = () => {
                     <input
                       className="form-control"
                       type="text"
-                      {...register('father_name', { required: true })}
+                      {...register('mother_name', { required: true })}
                     />
-                    {errors.first_name && (
-                      <p className="error-input">Please enter First Name</p>
+                    {errors.mother_name && (
+                      <p className="error-input">Please enter Mother Name</p>
                     )}
                   </div>
                   <div className="mb-3">
@@ -391,6 +363,9 @@ const AddEmployee = () => {
                         <option value="transgender">Transgender</option>
                       </select>
                     </div>
+                    {errors.gender && (
+                      <p className="error-input">Please enter Gender</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Marital Status</label>
@@ -406,17 +381,20 @@ const AddEmployee = () => {
                         <option value="widowed">Widowed</option>
                       </select>
                     </div>
+                    {errors.marital_status && (
+                      <p className="error-input">Please enter Marital Status</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> CNIC:</label>
                     <input
                       className="form-control"
                       type="number"
-                      name="cnic"
-                      maxLength={13}
-                      minLength={13}
-                      {...register('first_name', { required: true })}
+                      {...register('cnic', { required: true })}
                     />
+                    {errors.cnic && (
+                      <p className="error-input">Please enter CNIC</p>
+                    )}
                   </div>
                   <br></br>
                   <div className="mb-3">
@@ -425,6 +403,11 @@ const AddEmployee = () => {
                       className="form-control"
                       {...register('permanent_address', { required: true })}
                     ></textarea>
+                    {errors.permanent_address && (
+                      <p className="error-input">
+                        Please enter Permanent Address
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Present Address:</label>
@@ -433,6 +416,9 @@ const AddEmployee = () => {
                       {...register('present_ddress', { required: true })}
                     ></textarea>
                   </div>
+                  {errors.present_ddress && (
+                    <p className="error-input">Please enter present_ddress</p>
+                  )}
                   <div className="mb-3">
                     <label className="form-label"> City:</label>
                     <input
@@ -440,6 +426,9 @@ const AddEmployee = () => {
                       type="text"
                       {...register('city', { required: true })}
                     />
+                    {errors.city && (
+                      <p className="error-input">Please enter City</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Blood Group</label>
@@ -464,6 +453,9 @@ const AddEmployee = () => {
                         <option value="Unknown">Unknown</option>
                       </select>
                     </div>
+                    {errors.blood_group && (
+                      <p className="error-input">Please enter blood_group</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Religon</label>
@@ -480,6 +472,9 @@ const AddEmployee = () => {
                         <option value="Other">Other</option>
                       </select>
                     </div>
+                    {errors.religon && (
+                      <p className="error-input">Please enter Religon</p>
+                    )}
                   </div>
                 </div>
                 <div className="input-grid">
@@ -491,6 +486,9 @@ const AddEmployee = () => {
                       type="text"
                       {...register('bank', { required: true })}
                     />
+                    {errors.bank && (
+                      <p className="error-input">Please enter Bank</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Bank Account Number:</label>
@@ -499,6 +497,11 @@ const AddEmployee = () => {
                       type="text"
                       {...register('bank_acc_num', { required: true })}
                     />
+                    {errors.bank_acc_num && (
+                      <p className="error-input">
+                        Please enter Bank Account Number
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Bank Branch Name:</label>
@@ -507,6 +510,11 @@ const AddEmployee = () => {
                       type="text"
                       {...register('bank_branch_name', { required: true })}
                     />
+                    {errors.bank_branch_name && (
+                      <p className="error-input">
+                        Please enter Bank Branch Name
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Service Status:</label>
@@ -515,6 +523,9 @@ const AddEmployee = () => {
                       type="text"
                       {...register('service_status', { required: true })}
                     />
+                    {errors.service_status && (
+                      <p className="error-input">Please enter Service Status</p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label"> Service Period:</label>
@@ -523,6 +534,9 @@ const AddEmployee = () => {
                       type="number"
                       {...register('service_period', { required: true })}
                     />
+                    {errors.service_period && (
+                      <p className="error-input">Please enter Service Period</p>
+                    )}
                   </div>
                 </div>
                 <div className="input-grid">
@@ -543,6 +557,11 @@ const AddEmployee = () => {
                           ))}
                       </select>
                     </div>
+                    {errors.office_id && (
+                      <p className="error-input">
+                        Please enter Office of Employee
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Departments</label>
@@ -560,6 +579,11 @@ const AddEmployee = () => {
                           ))}
                       </select>
                     </div>
+                    {errors.department_id && (
+                      <p className="error-input">
+                        Please enter Department of Employee
+                      </p>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Employee Types</label>
@@ -577,6 +601,9 @@ const AddEmployee = () => {
                           ))}
                       </select>
                     </div>
+                    {errors.employee_type_id && (
+                      <p className="error-input">Please enter Employee Type</p>
+                    )}
                   </div>
                   <div className="mb-3"></div>
                   <div className="mb-3">
@@ -595,6 +622,11 @@ const AddEmployee = () => {
                           ))}
                       </select>
                     </div>
+                    {errors.shift_id && (
+                      <p className="error-input">
+                        Please enter Shift of Employee
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
