@@ -16,7 +16,6 @@ export const getEmployee = createAsyncThunk(
           },
         }
       );
-
       return response;
     } catch (error) {
       rejectWithValue(error);
@@ -93,7 +92,7 @@ export const postEmployee = createAsyncThunk(
           },
         }
       );
-      console.log(status, employee);
+
       if (status === 200 && employee) {
         const employee_id = employee.id;
         const res = await axios.post(
@@ -136,7 +135,7 @@ export const postEmployee = createAsyncThunk(
             },
           }
         );
-        console.log(res);
+
         if (res.data.status === 'success') {
           toast('User Added', {
             position: 'bottom-right',
@@ -222,6 +221,7 @@ export const getEmployeeTypes = createAsyncThunk(
           },
         }
       );
+
       return response;
     } catch (error) {
       rejectWithValue(error);

@@ -98,7 +98,7 @@ const AddEmployee = () => {
                       type="email"
                       {...register('employee_email', { required: true })}
                     />
-                    {errors.official_email && (
+                    {errors.employee_email && (
                       <p className="error-input">Please enter Official Email</p>
                     )}
                   </div>
