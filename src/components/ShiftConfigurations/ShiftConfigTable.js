@@ -1,25 +1,31 @@
-import React from "react";
-import CardContainer from "../Layout/CardContainer";
-import Table from "../Table/Table";
-import EditeIcon from "../../assets/Icons/EditeIcon";
+import React, { useState, useEffect } from 'react';
+import CardContainer from '../Layout/CardContainer';
+import Table from '../Table/Table';
+import EditeIcon from '../../assets/Icons/EditeIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { getShifts } from '../../store/feature/shift/shift';
 
 const columns = [
-  { path: "no", lable: "S.NO" },
+  { path: 'id', lable: 'S.NO' },
   {
-    path: "name",
-    lable: "Shift Name",
+    path: 'name',
+    lable: 'Shift Name',
   },
   {
-    path: "starts",
-    lable: "Shift Starts",
+    path: 'start_time',
+    lable: 'Shift Starts',
   },
   {
-    path: "ends",
-    lable: "Shift Ends",
+    path: 'end_time',
+    lable: 'Shift Ends',
   },
   {
-    path: "edit",
-    lable: "Edit",
+    path: 'grace_period',
+    lable: 'Grace Period',
+  },
+  {
+    path: 'edit',
+    lable: 'Edit',
     content: (leave) => (
       <button>
         <EditeIcon width={16} />
@@ -28,25 +34,26 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    no: 1,
-    name: "Housing",
-    starts: "07:000",
-    ends: "21:00",
-  },
-  {
-    no: 2,
-    name: "Housing",
-    starts: "07:000",
-    ends: "21:00",
-  },
-];
-
 const ShiftConfigTable = () => {
+  const dispatch = useDispatch();
+  const [shiftState, setShiftState] = useState([]);
+  const shiftData = useSelector((state) => state.shifts);
+  useEffect(() => {
+    dispatch(getShifts());
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (shiftData) setShiftState(shiftData.data);
+  }, [shiftData]);
+  console.log(shiftData);
   return (
     <CardContainer title="Shifts List">
-      <Table data={data} columns={columns} />
+      {shiftState && shiftState.length > 0 ? (
+        <Table data={shiftState} columns={columns} />
+      ) : (
+        <></>
+      )}
     </CardContainer>
   );
 };
