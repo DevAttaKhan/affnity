@@ -46,7 +46,6 @@ const ShiftConfigTable = () => {
   useEffect(() => {
     if (shiftData) setShiftState(shiftData.data);
   }, [shiftData]);
-  console.log(shiftData);
   return (
     <CardContainer title="Shifts List">
       {shiftState && shiftState.length > 0 ? (

@@ -1,6 +1,6 @@
-import React from "react";
-import "./CardContainer.scss";
-import Button from "../Button/Index";
+import React from 'react';
+import './CardContainer.scss';
+import Button from '../Button/Index';
 
 const CardContainer = ({ title, children, onClick, form, add, addOnClick }) => {
   return (
@@ -12,13 +12,13 @@ const CardContainer = ({ title, children, onClick, form, add, addOnClick }) => {
 
       <div className="table_body">{children}</div>
 
-      <div className="table_footer">
-        {!form ? (
+      {!form ? (
+        <div className="table_footer">
           <Button btnText={`View all ${title}`} onClick={onClick} />
-        ) : (
-          <Button btnText="Add" onClick={onClick} />
-        )}
-      </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

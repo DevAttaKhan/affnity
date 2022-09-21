@@ -1,45 +1,71 @@
-import React, { useState } from "react";
-import Form from "../Common/Form/Form";
-import CardContainer from "../Layout/CardContainer";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Form from '../Common/Form/Form';
+import CardContainer from '../Layout/CardContainer';
+import { getOffices } from '../../store/feature/office/office';
+import { postShift } from '../../store/feature/shift/shift';
 
 const inputs = [
   {
-    label: "Shift Name",
-    name: "name",
-    type: "text",
-    value: "",
+    label: 'Shift Name',
+    name: 'name',
+    type: 'text',
+    value: '',
   },
   {
-    label: "Shift Starts",
-    name: "start",
-    type: "text",
-    value: "",
+    label: 'Shift Starts',
+    name: 'start_time',
+    type: 'text',
+    value: '',
   },
   {
-    label: "Shift Ends",
-    name: "end",
-    type: "text",
-    value: "",
+    label: 'Shift Ends',
+    name: 'end_time',
+    type: 'text',
+    value: '',
+  },
+  {
+    label: 'Grace Period',
+    name: 'grace_period',
+    type: 'text',
+    value: '',
+  },
+  {
+    label: 'Offices',
+    name: 'office_id',
+    type: 'dropdown',
+    value: '',
+    options: [],
   },
 ];
 
 const ShiftConfigForm = () => {
-  const [state, setState] = useState(inputs);
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    const config = [...state];
-    const index = config.findIndex((el) => el.name === e.target.name);
-    config[index] = { ...config[index], value: e.target.value };
-    setState(config);
-  };
+  const [shiftState, setShiftState] = useState();
+  const { data } = useSelector((state) => state.offices);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    if (data) inputs[inputs.length - 1].options = data;
+  }, [data]);
+
+  useEffect(() => {
+    if (shiftState) {
+      dispatch(postShift(shiftState));
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    dispatch(getOffices());
+    // eslint-disable-next-line
+  }, []);
+
+  console.log(inputs[inputs.length - 1].options);
 
   return (
-    <CardContainer title="Shifts Configurations" onClick={handleSubmit} form>
-      <Form inputs={state} onChange={handleChange} />
+    <CardContainer title="Shifts Configurations" form>
+      {data && <Form inputs={inputs} setShiftState={setShiftState} />}
     </CardContainer>
   );
 };
