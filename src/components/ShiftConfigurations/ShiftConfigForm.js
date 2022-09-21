@@ -59,7 +59,7 @@ const ShiftConfigForm = () => {
 
   return (
     <CardContainer title="Shifts Configurations" form>
-      {data && <Form inputs={inputs} setShiftState={setShiftState} />}
+      {data && <Form inputs={inputs} setState={setShiftState} />}
     </CardContainer>
   );
 };

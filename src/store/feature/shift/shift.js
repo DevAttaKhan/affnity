@@ -54,15 +54,11 @@ export const postShift = createAsyncThunk(
     try {
       const { name, start_time, end_time, grace_period, office_id } = empData;
 
-      const {
-        token,
-        empData: { user_id },
-      } = JSON.parse(localStorage.getItem('loginData'));
+      const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
         'http://savvy.developerpro.co/api/shift/add',
         {
-          user_id,
           name,
           start_time,
           end_time,

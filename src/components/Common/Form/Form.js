@@ -3,7 +3,7 @@ import Input from '../Input/Input';
 import Button from '../../Button/Index';
 import { useForm } from 'react-hook-form';
 
-const Form = ({ inputs, setShiftState }) => {
+const Form = ({ inputs, setState }) => {
   const [formData, setFormData] = useState([]);
   const {
     register,
@@ -22,7 +22,7 @@ const Form = ({ inputs, setShiftState }) => {
   }, [inputs]);
 
   const onSubmit = (data, e) => {
-    setShiftState(data);
+    setState(data);
     reset();
   };
   return (

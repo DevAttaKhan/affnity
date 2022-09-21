@@ -52,22 +52,15 @@ export const postLeave = createAsyncThunk(
   'leave/postData',
   async (empData, { rejectWithValue }) => {
     try {
-      const { name, start_time, end_time, grace_period, office_id } = empData;
+      const { category_name, no_of_days } = empData;
 
-      const {
-        token,
-        empData: { user_id },
-      } = JSON.parse(localStorage.getItem('loginData'));
+      const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/leave_request/add',
+        'http://savvy.developerpro.co/api/add_leave_category',
         {
-          user_id,
-          name,
-          start_time,
-          end_time,
-          grace_period,
-          office_id,
+          category_name,
+          no_of_days,
           active: '1',
         },
         {
