@@ -15,19 +15,19 @@ const inputs = [
   {
     label: 'Shift Starts',
     name: 'start_time',
-    type: 'text',
+    type: 'time',
     value: '',
   },
   {
     label: 'Shift Ends',
     name: 'end_time',
-    type: 'text',
+    type: 'time',
     value: '',
   },
   {
     label: 'Grace Period',
     name: 'grace_period',
-    type: 'text',
+    type: 'time',
     value: '',
   },
   {

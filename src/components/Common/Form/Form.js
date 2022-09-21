@@ -5,7 +5,12 @@ import { useForm } from 'react-hook-form';
 
 const Form = ({ inputs, setShiftState }) => {
   const [formData, setFormData] = useState([]);
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
@@ -16,15 +21,16 @@ const Form = ({ inputs, setShiftState }) => {
     }
   }, [inputs]);
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     setShiftState(data);
+    reset();
   };
   return (
     <>
       <form className="form">
         {formData &&
           formData.map((input, i) => {
-            let { type, options, name } = input;
+            let { type, options, name, label } = input;
             if (type === 'dropdown') {
               return (
                 <div key={i} className="form-group row my-3 px-3">
@@ -42,6 +48,11 @@ const Form = ({ inputs, setShiftState }) => {
                           </option>
                         ))}
                     </select>
+                    {errors.name && (
+                      <small className="error-input">
+                        Please enter {label}
+                      </small>
+                    )}
                   </div>
                 </div>
               );
@@ -49,9 +60,11 @@ const Form = ({ inputs, setShiftState }) => {
             return (
               <Input
                 key={i}
+                name={input.name}
                 type={input.type}
                 label={input.label}
                 data={{ ...register(`${input.name}`, { required: true }) }}
+                errors={errors}
               />
             );
           })}
