@@ -1,34 +1,23 @@
-import React,{useState,useEffect} from "react";
-import CardContainer from "../Layout/CardContainer";
-import Table from "../Table/Table";
-import EditeIcon from "../../assets/Icons/EditeIcon";
-import leaveData from '../../data/leaveDB.json'
+import React, { useState, useEffect } from 'react';
+import CardContainer from '../Layout/CardContainer';
+import Table from '../Table/Table';
+import EditeIcon from '../../assets/Icons/EditeIcon';
+import { getLeaves } from '../../store/feature/leave/leave';
+import { useDispatch, useSelector } from 'react-redux';
 
 const columns = [
-  { path: "id", lable: "S.NO" },
+  { path: 'id', lable: 'S.NO' },
   {
-    path: "categoryName",
-    lable: "Category Name",
+    path: 'category_name',
+    lable: 'Category Name',
   },
   {
-    path: "allowedLeaves",
-    lable: "Allowed Leaves",
+    path: 'no_of_days',
+    lable: 'No of Days',
   },
   {
-    path: "appliedTo",
-    lable: "Applied To",
-  },
-  {
-    path: "empType",
-    lable: "Employee Type",
-  },
-  {
-    path: "status",
-    lable: "Status",
-  },
-  {
-    path: "edit",
-    lable: "Edit",
+    path: 'edit',
+    lable: 'Edit',
     content: (leave) => (
       <button>
         <EditeIcon width={16} />
@@ -37,28 +26,29 @@ const columns = [
   },
 ];
 
-const EmployeesTable = () => {
+const LeavesTable = () => {
+  const dispatch = useDispatch();
   const [leaveState, setLeaveState] = useState([]);
-  let tableData = [];
+  const leaveData = useSelector((state) => state.leaves);
 
   useEffect(() => {
-    if (leaveData.length > 0) {
-      // eslint-disable-next-line
-      tableData = leaveData.map(dataItem => {
-        const { id,categoryName, allowedLeaves, appliedTo, empType ,status} = dataItem;
-        return { id,categoryName, allowedLeaves, appliedTo, empType,status }
-
-      });
-      setLeaveState(tableData)
-    }
+    dispatch(getLeaves());
     // eslint-disable-next-line
-  }, [leaveData])
+  }, []);
+
+  useEffect(() => {
+    if (leaveData) setLeaveState(leaveData.data);
+  }, [leaveData]);
+
   return (
     <CardContainer title="Leaves Category">
-            {leaveState.length > 0 ? (<Table data={leaveState} columns={columns} />
-      ) : (<></>)}
+      {leaveState && leaveState.length > 0 ? (
+        <Table data={leaveState} columns={columns} />
+      ) : (
+        <></>
+      )}
     </CardContainer>
   );
 };
 
-export default EmployeesTable;
+export default LeavesTable;
