@@ -5,22 +5,16 @@ import { useForm } from 'react-hook-form';
 
 const Form = ({ inputs, setShiftState }) => {
   const [formData, setFormData] = useState([]);
-  let options;
   const { register, handleSubmit } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
 
-  if (inputs) {
-    console.log(inputs[inputs.length - 1].options.length);
-    options = inputs[inputs.length - 1].options.length;
-  }
-
   useEffect(() => {
     if (inputs) {
       setFormData(inputs);
     }
-  }, [inputs, options]);
+  }, [inputs]);
 
   const onSubmit = (data) => {
     setShiftState(data);

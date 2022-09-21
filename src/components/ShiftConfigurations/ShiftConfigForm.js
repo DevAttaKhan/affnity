@@ -48,20 +48,14 @@ const ShiftConfigForm = () => {
   useEffect(() => {
     if (data) inputs[inputs.length - 1].options = data;
   }, [data]);
-
-  useEffect(() => {
-    if (shiftState) {
-      dispatch(postShift(shiftState));
-    }
-    // eslint-disable-next-line
-  }, []);
+  if (shiftState) {
+    dispatch(postShift(shiftState));
+  }
 
   useEffect(() => {
     dispatch(getOffices());
     // eslint-disable-next-line
   }, []);
-
-  console.log(inputs[inputs.length - 1].options);
 
   return (
     <CardContainer title="Shifts Configurations" form>

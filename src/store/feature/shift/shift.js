@@ -52,8 +52,8 @@ export const postShift = createAsyncThunk(
   'shift/postData',
   async (empData, { rejectWithValue }) => {
     try {
-      const { name, start_time, end_time, grace_period } = empData;
-      console.log(name, start_time, end_time, grace_period);
+      const { name, start_time, end_time, grace_period, office_id } = empData;
+
       const {
         token,
         empData: { user_id },
@@ -67,6 +67,7 @@ export const postShift = createAsyncThunk(
           start_time,
           end_time,
           grace_period,
+          office_id,
           active: '1',
         },
         {
