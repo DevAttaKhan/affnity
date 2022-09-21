@@ -57,6 +57,10 @@ const AddEmployee = () => {
     navigate('/dashboard/employees/', { replace: true });
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="row">
       <div className="col-md-12">
@@ -66,7 +70,16 @@ const AddEmployee = () => {
           </div>
 
           <div className="card-body">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-100">
+            <form onSubmit={submitHandler} className="w-100">
+              <div className="row">
+                <div className="input-grid">
+                  <label className="form-label"> First Name:</label>
+                  <input name="x" className="form-control" required />
+                </div>
+                <input type="submit" value="Atta Kuni" />
+              </div>
+            </form>
+            {/* <form onSubmit={handleSubmit(onSubmit)} className="w-100">
               <div className="row">
                 <div className="input-grid">
                   <h4 className="card-title">Official Information</h4>
@@ -615,7 +628,7 @@ const AddEmployee = () => {
                   />
                 </div>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>

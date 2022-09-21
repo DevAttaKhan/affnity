@@ -1,5 +1,5 @@
-import React from "react";
-import Input from "../Input/Input";
+import React from 'react';
+import Input from '../Input/Input';
 
 const Form = ({ inputs, onChange }) => {
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Input = ({ name, value, label, onChange, type }) => {
   return (
@@ -11,6 +11,7 @@ const Input = ({ name, value, label, onChange, type }) => {
           name={name}
           value={value}
           onChange={onChange}
+          required
         />
       </div>
     </div>

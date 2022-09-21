@@ -77,7 +77,6 @@ export const postEmployee = createAsyncThunk(
       } = await axios.post(
         'http://savvy.developerpro.co/api/employee/add',
         {
-          user_id,
           office_id,
           department_id,
           employee_type_id,
@@ -95,11 +94,11 @@ export const postEmployee = createAsyncThunk(
       );
       console.log(status, employee);
       if (status === 200 && employee) {
-        const { id } = employee;
+        const employee_id = employee.id;
         const res = await axios.post(
           'http://savvy.developerpro.co/api/employee_details/add',
           {
-            id,
+            employee_id,
             father_name,
             mother_name,
             gender,
@@ -137,7 +136,7 @@ export const postEmployee = createAsyncThunk(
           }
         );
         console.log(res);
-        if (res.status === 200) {
+        if (res.data.status === 'success') {
           toast('User Added', {
             position: 'bottom-right',
             autoClose: 2500,
