@@ -77,6 +77,7 @@ export const postEmployee = createAsyncThunk(
       } = await axios.post(
         'http://savvy.developerpro.co/api/employee/add',
         {
+          user_id,
           office_id,
           department_id,
           employee_type_id,
