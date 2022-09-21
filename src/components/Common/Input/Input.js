@@ -6,7 +6,7 @@ const Input = ({ name, label, errors, type, data }) => {
       <label className="col-form-label col-md-2">{label}</label>
       <div className="col-md-10">
         <input className="form-control" type={type} {...data} />
-        {errors.name && (
+        {Object.keys(errors).find((key) => key === name) && (
           <small className="error-input">Please enter {label}</small>
         )}
       </div>

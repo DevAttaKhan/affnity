@@ -24,7 +24,6 @@ const LeaveCategoryForm = () => {
   const [leaveState, setLeaveState] = useState();
 
   if (leaveState) {
-    console.log(leaveState);
     dispatch(postLeave(leaveState));
   }
 

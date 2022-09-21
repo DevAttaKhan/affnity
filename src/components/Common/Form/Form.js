@@ -25,6 +25,7 @@ const Form = ({ inputs, setState }) => {
     setState(data);
     reset();
   };
+
   return (
     <>
       <form className="form">
@@ -38,9 +39,9 @@ const Form = ({ inputs, setState }) => {
                   <div className="col-md-10">
                     <select
                       className="form-control"
-                      {...register(`${input.name}`, { required: true })}
+                      {...register(`${name}`, { required: true })}
                     >
-                      <option value="">Select Office</option>
+                      <option value="">Select {name}</option>
                       {options.length > 0 &&
                         options.map((el) => (
                           <option key={el.id} value={el.id}>
