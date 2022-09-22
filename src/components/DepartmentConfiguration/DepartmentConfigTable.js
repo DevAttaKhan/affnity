@@ -3,17 +3,17 @@ import CardContainer from '../Layout/CardContainer';
 import Table from '../Table/Table';
 import EditeIcon from '../../assets/Icons/EditeIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOffices } from '../../store/feature/office/office';
+import { getDepartments } from '../../store/feature/department/department';
 
 const columns = [
   { path: 'id', lable: 'S.NO' },
   {
     path: 'name',
-    lable: 'Office Name',
+    lable: 'Department Name',
   },
   {
-    path: 'address',
-    lable: 'Office Address',
+    path: 'office_id',
+    lable: 'Office',
   },
   {
     path: 'edit',
@@ -26,22 +26,22 @@ const columns = [
   },
 ];
 
-const OfficeConfigTable = () => {
+const DepartmentConfigTable = () => {
   const dispatch = useDispatch();
-  const [officeState, setOfficeState] = useState([]);
-  const officeData = useSelector((state) => state.offices);
+  const [departmentState, setDepartmentState] = useState([]);
+  const departmentData = useSelector((state) => state.departments);
   useEffect(() => {
-    dispatch(getOffices());
+    dispatch(getDepartments());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (officeData) setOfficeState(officeData.data);
-  }, [officeData]);
+    if (departmentData) setDepartmentState(departmentData.data);
+  }, [departmentData]);
   return (
-    <CardContainer title="Offices List">
-      {officeState && officeState.length > 0 ? (
-        <Table data={officeState} columns={columns} />
+    <CardContainer title="Departments List">
+      {departmentState && departmentState.length > 0 ? (
+        <Table data={departmentState} columns={columns} />
       ) : (
         <></>
       )}
@@ -49,4 +49,4 @@ const OfficeConfigTable = () => {
   );
 };
 
-export default OfficeConfigTable;
+export default DepartmentConfigTable;
