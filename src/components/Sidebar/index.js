@@ -128,6 +128,16 @@ function Sidebar() {
                   Offices
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="departments"
+                  className={({ isActive }) =>
+                    isActive ? 'accordion-item-active' : undefined
+                  }
+                >
+                  Departments
+                </NavLink>
+              </li>
             </ul>
           </Accordion.Body>
         </Accordion.Item>

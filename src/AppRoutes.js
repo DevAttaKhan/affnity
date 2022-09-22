@@ -20,6 +20,7 @@ import Reports from './pages/Reports/Reports';
 import Attendence from './pages/Attendence/Attendence';
 import Expense from './pages/Expense/Expense';
 import Offices from './pages/Offices';
+import Departments from './pages/Departments';
 
 function AppRoutes() {
   const [sidebar, setSidebar] = useState(false);
@@ -89,6 +90,7 @@ function AppRoutes() {
 
             <Route path="shifts" element={<Shifts />} />
             <Route path="offices" element={<Offices />} />
+            <Route path="departments" element={<Departments />} />
             <Route path="reports" element={<Reports />} />
             <Route path="test" element={<Test />} />
           </Routes>

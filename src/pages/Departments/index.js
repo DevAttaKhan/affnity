@@ -1,20 +1,20 @@
-import React from "react";
-import AdminHeading from "../../components/AdminHeading/AdminHeading";
-import ShiftConfigForm from "../../components/ShiftConfigurations/ShiftConfigForm";
-import ShiftConfigTable from "../../components/ShiftConfigurations/ShiftConfigTable";
+import React from 'react';
+import AdminHeading from '../../components/AdminHeading/AdminHeading';
+import DepartmentConfigForm from '../../components/DepartmentConfiguration/DepartmentConfigForm';
+import DepartmentConfigTable from '../../components/DepartmentConfiguration/DepartmentConfigTable';
 
-const Shifts = () => {
+const Departments = () => {
   return (
     <>
-      <AdminHeading title="Shifts" />
+      <AdminHeading title="Departments" />
       <div className="row px-3 mb-3">
-        <ShiftConfigForm />
+        <DepartmentConfigForm />
       </div>
       <div className="row px-3 mb-3">
-        <ShiftConfigTable />
+        <DepartmentConfigTable />
       </div>
     </>
   );
 };
 
-export default Shifts;
+export default Departments;

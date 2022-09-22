@@ -1,5 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import departmentsSlice from './feature/department/department';
+import {
+  departmentsSlice,
+  postDepartmentSlice,
+} from './feature/department/department';
 import {
   getEmployeesSlice,
   employeeTypesSlice,
@@ -15,6 +18,7 @@ export const store = configureStore({
     postEmployee: postEmployeeSlice.reducer,
     employeeTypes: employeeTypesSlice.reducer,
     departments: departmentsSlice.reducer,
+    postDepartment: postDepartmentSlice.reducer,
     offices: officesSlice.reducer,
     postOffice: postOfficeSlice,
     shifts: shiftSlice.reducer,

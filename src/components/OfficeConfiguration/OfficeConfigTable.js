@@ -29,7 +29,7 @@ const columns = [
 const OfficeConfigTable = () => {
   const dispatch = useDispatch();
   const [officeState, setOfficeState] = useState([]);
-  const officeData = useSelector((state) => state.offices);
+  const officeData = useSelector((state) => state.departments);
   useEffect(() => {
     dispatch(getOffices());
     // eslint-disable-next-line
