@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Form from "../Common/Form/Form";
-import CardContainer from "../Layout/CardContainer";
-import leaveDb from '../../data/leaveDB.json'
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Form from '../Common/Form/Form';
+import CardContainer from '../Layout/CardContainer';
+import leaveDb from '../../data/leaveDB.json';
+import axios from 'axios';
 const inputs = [
   {
-    label: "Expense Type Name",
-    name: "name",
-    type: "text",
-    value: "",
+    label: 'Expense Type Name',
+    name: 'name',
+    type: 'text',
+    value: '',
   },
   {
-    label: "Allowed Amount",
-    name: "allowed_amount",
-    type: "number",
-    value: "",
+    label: 'Allowed Amount',
+    name: 'allowed_amount',
+    type: 'number',
+    value: '',
   },
 ];
 
@@ -34,35 +34,39 @@ const ExpensesTypeForm = () => {
     setState(config);
   };
 
-  useEffect(()=>{
-    if(leaveDb.length>0){
-      let id = leaveDb.length+1;
-      setId(id)
+  useEffect(() => {
+    if (leaveDb.length > 0) {
+      let id = leaveDb.length + 1;
+      setId(id);
     }
     // eslint-disable-next-line
-  },[leaveDb])
+  }, [leaveDb]);
 
   const handleSubmit = (e) => {
     const expenseTypeData = {
-      "active": '1',
-      "name": state[0].value,
-      "allowed_amount": state[1].value,
-    }
+      active: '1',
+      name: state[0].value,
+      allowed_amount: state[1].value,
+    };
 
-    axios.post('http://savvy.developerpro.co/api/expense_type/add',expenseTypeData, {headers: {
-      'Authorization': 'Bearer ' + items.token,
-      'Accept': 'application/json'
-    }}).then(res=>console.log(res))
+    axios
+      .post(
+        'http://savvy.developerpro.co/api/expense_type/add',
+        expenseTypeData,
+        {
+          headers: {
+            Authorization: 'Bearer ' + items.token,
+            Accept: 'application/json',
+          },
+        }
+      )
+      .then((res) => console.log(res));
     e.preventDefault();
-    navigate("/dashboard/home", { replace: true });
+    navigate('/dashboard/home', { replace: true });
   };
 
   return (
-    <CardContainer
-      title="Expenses Type Form"
-      onClick={handleSubmit}
-      form
-    >
+    <CardContainer title="Create New Expenses Type" onClick={handleSubmit} form>
       <Form inputs={state} onChange={handleChange} />
     </CardContainer>
   );

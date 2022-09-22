@@ -1,12 +1,12 @@
-import React from "react";
-import AdminHeading from "../../components/AdminHeading/AdminHeading";
-import LeaveCategoryForm from "../../components/LeaveCategoryForm/LeaveCategoryForm";
-import LeaveCategoryTable from "../../components/LeaveCategoryTable/Index";
+import React from 'react';
+import AdminHeading from '../../components/AdminHeading/AdminHeading';
+import LeaveCategoryForm from '../../components/LeaveCategoryForm/LeaveCategoryForm';
+import LeaveCategoryTable from '../../components/LeaveCategoryTable/Index';
 
 const LeaveConfig = () => {
   return (
     <>
-      <AdminHeading title="Leave Configuration" />
+      <AdminHeading title="Leave Category Configuration" />
       <div className="row px-3 mb-3">
         <LeaveCategoryForm />
       </div>
@@ -18,4 +18,3 @@ const LeaveConfig = () => {
 };
 
 export default LeaveConfig;
-

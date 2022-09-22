@@ -28,7 +28,7 @@ const LeaveCategoryForm = () => {
   }
 
   return (
-    <CardContainer title="Leaves Configurations" form>
+    <CardContainer title="Create New Leaves Category" form>
       <Form inputs={inputs} setState={setLeaveState} />
     </CardContainer>
   );
