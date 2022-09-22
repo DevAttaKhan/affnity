@@ -53,7 +53,7 @@ export const postDepartment = createAsyncThunk(
   'department/postData',
   async (empData, { rejectWithValue }) => {
     try {
-      const { name, address } = empData;
+      const { name, office_id } = empData;
 
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
@@ -61,7 +61,7 @@ export const postDepartment = createAsyncThunk(
         'http://savvy.developerpro.co/api/department/add',
         {
           name,
-          address,
+          office_id,
           active: '1',
         },
         {

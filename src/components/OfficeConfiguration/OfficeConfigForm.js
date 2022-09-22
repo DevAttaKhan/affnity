@@ -13,10 +13,11 @@ const inputs = [
     value: '',
   },
   {
-    label: 'Office Addresss',
-    name: 'address',
-    type: 'text',
+    label: 'Offices',
+    name: 'office_id',
+    type: 'dropdown',
     value: '',
+    options: [],
   },
 ];
 

@@ -35,13 +35,13 @@ const Form = ({ inputs, setState }) => {
             if (type === 'dropdown') {
               return (
                 <div key={i} className="form-group row my-3 px-3">
-                  <label className="col-form-label col-md-2">{name}</label>
+                  <label className="col-form-label col-md-2">{label}</label>
                   <div className="col-md-10">
                     <select
                       className="form-control"
                       {...register(`${name}`, { required: true })}
                     >
-                      <option value="">Select {name}</option>
+                      <option value="">Select {label}</option>
                       {options.length > 0 &&
                         options.map((el) => (
                           <option key={el.id} value={el.id}>
