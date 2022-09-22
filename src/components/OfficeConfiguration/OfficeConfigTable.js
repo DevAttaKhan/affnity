@@ -3,21 +3,21 @@ import CardContainer from '../Layout/CardContainer';
 import Table from '../Table/Table';
 import EditeIcon from '../../assets/Icons/EditeIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { getShifts } from '../../store/feature/shift/shift';
+import { getOffices } from '../../store/feature/office/office';
 
 const columns = [
   { path: 'id', lable: 'S.NO' },
   {
     path: 'name',
-    lable: 'Shift Name',
+    lable: 'Office Name',
   },
   {
     path: 'start_time',
-    lable: 'Shift Starts',
+    lable: 'Office Starts',
   },
   {
     path: 'end_time',
-    lable: 'Shift Ends',
+    lable: 'Office Ends',
   },
   {
     path: 'grace_period',
@@ -34,22 +34,22 @@ const columns = [
   },
 ];
 
-const ShiftConfigTable = () => {
+const OfficeConfigTable = () => {
   const dispatch = useDispatch();
-  const [shiftState, setShiftState] = useState([]);
-  const shiftData = useSelector((state) => state.shifts);
+  const [officeState, setOfficeState] = useState([]);
+  const officeData = useSelector((state) => state.offices);
   useEffect(() => {
-    dispatch(getShifts());
+    dispatch(getOffices());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (shiftData) setShiftState(shiftData.data);
-  }, [shiftData]);
+    if (officeData) setOfficeState(officeData.data);
+  }, [officeData]);
   return (
-    <CardContainer title="Shifts List">
-      {shiftState && shiftState.length > 0 ? (
-        <Table data={shiftState} columns={columns} />
+    <CardContainer title="Offices List">
+      {officeState && officeState.length > 0 ? (
+        <Table data={officeState} columns={columns} />
       ) : (
         <></>
       )}
@@ -57,4 +57,4 @@ const ShiftConfigTable = () => {
   );
 };
 
-export default ShiftConfigTable;
+export default OfficeConfigTable;

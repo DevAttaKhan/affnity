@@ -5,7 +5,7 @@ import {
   employeeTypesSlice,
   postEmployeeSlice,
 } from './feature/employee/employee';
-import officesSlice from './feature/office/office';
+import { officesSlice, postOfficeSlice } from './feature/office/office';
 import { shiftSlice, postShiftSlice } from './feature/shift/shift';
 import { leaveSlice, postLeaveSlice } from './feature/leave/leave';
 import { expenseSlice, postExpenseSlice } from './feature/expenses/expenses';
@@ -16,6 +16,7 @@ export const store = configureStore({
     employeeTypes: employeeTypesSlice.reducer,
     departments: departmentsSlice.reducer,
     offices: officesSlice.reducer,
+    postOffice: postOfficeSlice,
     shifts: shiftSlice.reducer,
     postShift: postShiftSlice.reducer,
     leaves: leaveSlice.reducer,

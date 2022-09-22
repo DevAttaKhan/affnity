@@ -19,6 +19,7 @@ import Shifts from './pages/Shifts';
 import Reports from './pages/Reports/Reports';
 import Attendence from './pages/Attendence/Attendence';
 import Expense from './pages/Expense/Expense';
+import Offices from './pages/Offices';
 
 function AppRoutes() {
   const [sidebar, setSidebar] = useState(false);
@@ -87,6 +88,7 @@ function AppRoutes() {
             <Route path="employees/addEmployee" element={<AddEmployee />} />
 
             <Route path="shifts" element={<Shifts />} />
+            <Route path="offices" element={<Offices />} />
             <Route path="reports" element={<Reports />} />
             <Route path="test" element={<Test />} />
           </Routes>
