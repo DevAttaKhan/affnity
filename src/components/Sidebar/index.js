@@ -1,15 +1,15 @@
-import ChartColumnIcon from "../../assets/Icons/ChartColumnIcon";
+import ChartColumnIcon from '../../assets/Icons/ChartColumnIcon';
 
-import BuildingIcon from "../../assets/Icons/BuildingIcon";
+import BuildingIcon from '../../assets/Icons/BuildingIcon';
 
-import "./style.scss";
-import { Accordion } from "react-bootstrap";
-import HomeIcon from "../../assets/Icons/HomeIcon";
-import { Link, NavLink } from "react-router-dom";
-import AppsIcon from "../../assets/Icons/AppsIcon";
-import BoxIcon from "../../assets/Icons/BoxIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import './style.scss';
+import { Accordion } from 'react-bootstrap';
+import HomeIcon from '../../assets/Icons/HomeIcon';
+import { Link, NavLink } from 'react-router-dom';
+import AppsIcon from '../../assets/Icons/AppsIcon';
+import BoxIcon from '../../assets/Icons/BoxIcon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 function Sidebar() {
   return (
@@ -102,7 +102,7 @@ function Sidebar() {
                 <NavLink
                   to="employees"
                   className={({ isActive }) =>
-                    isActive ? "accordion-item-active" : undefined
+                    isActive ? 'accordion-item-active' : undefined
                   }
                 >
                   Employees
@@ -112,10 +112,20 @@ function Sidebar() {
                 <NavLink
                   to="shifts"
                   className={({ isActive }) =>
-                    isActive ? "accordion-item-active" : undefined
+                    isActive ? 'accordion-item-active' : undefined
                   }
                 >
                   Shifts
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="offices"
+                  className={({ isActive }) =>
+                    isActive ? 'accordion-item-active' : undefined
+                  }
+                >
+                  Offices
                 </NavLink>
               </li>
             </ul>

@@ -12,16 +12,8 @@ const columns = [
     lable: 'Office Name',
   },
   {
-    path: 'start_time',
-    lable: 'Office Starts',
-  },
-  {
-    path: 'end_time',
-    lable: 'Office Ends',
-  },
-  {
-    path: 'grace_period',
-    lable: 'Grace Period',
+    path: 'address',
+    lable: 'Office Address',
   },
   {
     path: 'edit',

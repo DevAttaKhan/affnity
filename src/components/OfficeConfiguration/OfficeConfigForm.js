@@ -13,29 +13,10 @@ const inputs = [
     value: '',
   },
   {
-    label: 'Office Starts',
-    name: 'start_time',
-    type: 'time',
+    label: 'Office Addresss',
+    name: 'address',
+    type: 'text',
     value: '',
-  },
-  {
-    label: 'Office Ends',
-    name: 'end_time',
-    type: 'time',
-    value: '',
-  },
-  {
-    label: 'Grace Period',
-    name: 'grace_period',
-    type: 'time',
-    value: '',
-  },
-  {
-    label: 'Offices',
-    name: 'office_id',
-    type: 'dropdown',
-    value: '',
-    options: [],
   },
 ];
 
