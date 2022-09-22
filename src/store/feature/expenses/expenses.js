@@ -52,15 +52,15 @@ export const postExpense = createAsyncThunk(
   'expense/postData',
   async (empData, { rejectWithValue }) => {
     try {
-      const { category_name, no_of_days } = empData;
+      const { name, allowed_amount } = empData;
 
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/add_expense_category',
+        'http://savvy.developerpro.co/api/expense_type/add',
         {
-          category_name,
-          no_of_days,
+          name,
+          allowed_amount,
           active: '1',
         },
         {
