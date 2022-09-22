@@ -1,80 +1,59 @@
-import React, { useState,useEffect } from "react";
-import CardContainer from "../Layout/CardContainer";
-import Table from "../Table/Table";
-import EditeIcon from "../../assets/Icons/EditeIcon";
-import Portal from "../Portal/Portal";
-import Button from "../Button/Index";
-import expensesDB from '../../data/expensesDB.json'
-
-
+import React, { useState, useEffect } from 'react';
+import CardContainer from '../Layout/CardContainer';
+import Table from '../Table/Table';
+import EditeIcon from '../../assets/Icons/EditeIcon';
+// import Portal from '../Portal/Portal';
+// import Button from '../Button/Index';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExpenses } from '../../store/feature/expenses/expenses';
+const columns = [
+  { path: 'id', lable: 'S.NO' },
+  {
+    path: 'name',
+    lable: 'Name',
+    // content: (emp) => (
+    //   <Avatar name={emp.name} designation={emp.designation} img={emp.src} />
+    // ),
+  },
+  {
+    path: 'allowed_amount',
+    lable: 'Amount',
+  },
+  {
+    path: 'edit',
+    lable: 'Edit',
+    content: (emp) => (
+      <button>
+        <EditeIcon width={16} />
+      </button>
+    ),
+  },
+];
 
 const ExpenseConfigTable = () => {
-  const [empExpense, setEmpExpense] = useState({});
-  const [popupState, setPopupState] = useState(false);
-  let tableData = [];
-
-  const columns = [
-    { path: "id", lable: "S.NO" },
-    {
-      path: "name",
-      lable: "Name",
-      // content: (emp) => (
-      //   <Avatar name={emp.name} designation={emp.designation} img={emp.src} />
-      // ),
-    },
-    {
-      path: "dept",
-      lable: "Department",
-    },
-    {
-      path: "date",
-      lable: "Date",
-    },
-    {
-      path: "amount",
-      lable: "Amount",
-    },
-    {
-      path: "category",
-      lable: "Category",
-    },
-    {
-      path: "edit",
-      lable: "Edit",
-      content: (emp) => (
-        <button onClick={() => handleClick(emp)}>
-          <EditeIcon width={16} />
-        </button>
-      ),
-    },
-  ];
+  const dispatch = useDispatch();
+  const [expenseState, setExpenseState] = useState([]);
+  const expenseData = useSelector((state) => state.expenses);
 
   useEffect(() => {
-    if (expensesDB.length > 0) {
-      // eslint-disable-next-line
-      tableData = expensesDB.map(dataItem => {
-        const { id, name, dept, date, amount, category } = dataItem;
-        return { id, name, dept, date, amount, category }
-
-      });
-      setEmpExpense(tableData)
-    }
+    dispatch(getExpenses());
     // eslint-disable-next-line
-  }, [expensesDB])
+  }, []);
 
-
-  function handleClick(emp) {
-    setEmpExpense(emp);
-    setPopupState(true);
-  }
+  useEffect(() => {
+    if (expenseData) setExpenseState(expenseData.data);
+  }, [expenseData]);
   return (
     <>
       <CardContainer title="Expenses List">
-      {empExpense.length > 0 ? (<Table data={empExpense} columns={columns} />
-      ) : (<></>)}
+        {expenseState.length > 0 ? (
+          <Table data={expenseState} columns={columns} />
+        ) : (
+          <></>
+        )}
       </CardContainer>
 
-      {popupState && (
+      {/* {popupState && (
         <Portal>
           <div className="overlay" onClick={() => setPopupState(false)}></div>
           <div className="modal w-25">
@@ -101,7 +80,7 @@ const ExpenseConfigTable = () => {
             <Button btnText="Update" onClick={() => setPopupState(false)} />
           </div>
         </Portal>
-      )}
+      )} */}
     </>
   );
 };

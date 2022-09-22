@@ -1,20 +1,15 @@
-import React from "react";
-import ExpenseConfigTable from "../../components/ExpenseConfigurations/ExpenseConfigTable";
+import React from 'react';
+import ExpenseConfigTable from '../../components/ExpenseConfigurations/ExpenseConfigTable';
 
-import "./style.scss";
-import AdminHeading from "../../components/AdminHeading/AdminHeading";
-import ExpensesTypeForm from "../../components/ExpensesConfigForm/ExpensesTypeForm";
+import './style.scss';
+import AdminHeading from '../../components/AdminHeading/AdminHeading';
+import ExpensesTypeForm from '../../components/ExpensesConfigForm/ExpensesTypeForm';
 
 const Expense = () => {
   return (
     <>
-      <AdminHeading title="Expenses" />
+      <AdminHeading title="Expense Type" />
       <ExpensesTypeForm />
-      {/* <div className="expense-category mb-4">
-        <span>Expese Category:</span>
-        <SelectDropDown list={["Patrol", "Food"]} />
-      </div> */}
-
       <ExpenseConfigTable />
     </>
   );
