@@ -1,45 +1,29 @@
-import React, { useState } from "react";
-import Form from "../Common/Form/Form";
-import CardContainer from "../Layout/CardContainer";
-
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Form from '../Common/Form/Form';
+import CardContainer from '../Layout/CardContainer';
+import { postLoan } from '../../store/feature/loan/loans';
 const inputs = [
   {
-    label: "Loan Category",
-    name: "loanCategory",
-    type: "text",
-    value: "",
-  },
-  {
-    label: "Allowed Amount ",
-    name: "allowedAmount",
-    type: "text",
-    value: "",
-  },
-  {
-    label: "Max Installments",
-    name: "maxInstallments",
-    type: "text",
-    value: "",
+    label: 'Loan Type Name',
+    name: 'name',
+    type: 'text',
+    value: '',
   },
 ];
 
 const LoanConfigForm = () => {
-  const [state, setState] = useState(inputs);
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    const config = [...state];
-    const index = config.findIndex((el) => el.name === e.target.name);
-    config[index] = { ...config[index], value: e.target.value };
-    setState(config);
-  };
+  const [expenseState, setExpenseState] = useState();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  if (expenseState) {
+    dispatch(postLoan(expenseState));
+  }
 
   return (
-    <CardContainer title="Loan Confiuration " onClick={handleSubmit} form>
-      <Form inputs={state} onChange={handleChange} />
+    <CardContainer title="Create New Leaves Category" form>
+      <Form inputs={inputs} setState={setExpenseState} />
     </CardContainer>
   );
 };

@@ -1,31 +1,19 @@
-import React, {useState, useEffect} from "react";
-import CardContainer from "../Layout/CardContainer";
-import Table from "../Table/Table";
-import EditeIcon from "../../assets/Icons/EditeIcon";
-import loadDB from '../../data/loadDB.json';
+import React, { useState, useEffect } from 'react';
+import CardContainer from '../Layout/CardContainer';
+import Table from '../Table/Table';
+import EditeIcon from '../../assets/Icons/EditeIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoans } from '../../store/feature/loan/loans';
 
 const columns = [
-  { path: "id", lable: "S.NO" },
+  { path: 'id', lable: 'S.NO' },
   {
-    path: "loanCategory",
-    lable: "Loan Category",
+    path: 'name',
+    lable: 'Loan Type Name',
   },
   {
-    path: "allowedAmount",
-    lable: "Allowed Amount",
-  },
-  {
-    path: "maxInstallment",
-    lable: "Max Installments",
-  },
-  {
-    path: "status",
-    lable: "Status",
-  },
-
-  {
-    path: "edit",
-    lable: "Edit",
+    path: 'edit',
+    lable: 'Edit',
     content: (leave) => (
       <button>
         <EditeIcon width={16} />
@@ -35,27 +23,26 @@ const columns = [
 ];
 
 const LoanConfigTable = () => {
-
-  const [loanCategory, setLoanCategory] = useState({});
-  let tableData = [];
+  const dispatch = useDispatch();
+  const [loanState, setLoanState] = useState([]);
+  const loanData = useSelector((state) => state.loans);
 
   useEffect(() => {
-    if (loadDB.length > 0) {
-      // eslint-disable-next-line
-      tableData = loadDB.map(dataItem => {
-        const { id, loanCategory, allowedAmount, maxInstallment,status } = dataItem;
-        return { id, loanCategory, allowedAmount, maxInstallment,status } 
-
-      });
-      setLoanCategory(tableData)
-    }
+    dispatch(getLoans());
     // eslint-disable-next-line
-  }, [loadDB])
+  }, []);
+
+  useEffect(() => {
+    if (loanData) setLoanState(loanData.data);
+  }, [loanData]);
 
   return (
-    <CardContainer title="Loan Category">
-            {loanCategory.length > 0 ? (<Table data={loanCategory} columns={columns} />
-      ) : (<></>)}
+    <CardContainer title="Loans List">
+      {loanState.length > 0 ? (
+        <Table data={loanState} columns={columns} />
+      ) : (
+        <></>
+      )}
     </CardContainer>
   );
 };

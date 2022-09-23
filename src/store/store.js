@@ -12,6 +12,8 @@ import { officesSlice, postOfficeSlice } from './feature/office/office';
 import { shiftSlice, postShiftSlice } from './feature/shift/shift';
 import { leaveSlice, postLeaveSlice } from './feature/leave/leave';
 import { expenseSlice, postExpenseSlice } from './feature/expenses/expenses';
+import { loanSlice, postLoanSlice } from './feature/loan/loans';
+
 export const store = configureStore({
   reducer: {
     employees: getEmployeesSlice.reducer,
@@ -27,5 +29,7 @@ export const store = configureStore({
     postLeave: postLeaveSlice.reducer,
     expenses: expenseSlice.reducer,
     postExpense: postExpenseSlice.reducer,
+    loans: loanSlice.reducer,
+    postLoan: postLoanSlice,
   },
 });
