@@ -22,7 +22,7 @@ import Expense from './pages/Expense/Expense';
 import Offices from './pages/Offices';
 import Departments from './pages/Departments';
 import EmployeeTypeConfig from './pages/EmpTypeConfig/Index';
-
+import LeaveRequestConfig from './pages/LeaveRequestConfig/Index';
 function AppRoutes() {
   const [sidebar, setSidebar] = useState(false);
   const handleSidebar = () => {
@@ -74,25 +74,20 @@ function AppRoutes() {
         <div className="db_pagesWrap">
           <Routes>
             <Route path="home" element={<Home />} />
-
             <Route path="leave" element={<LeaveConfig />} />
-
             <Route path="attendence" element={<Attendence />} />
-
             <Route path="expense" element={<Expense />} />
-
             <Route path="loan" element={<LoanConfig />} />
             <Route path="employeeType" element={<EmployeeTypeConfig />} />
-
+            <Route path="leaveRequests" element={<LeaveRequestConfig />} />
             <Route path="advances" element={<AdvancesConfig />} />
 
             <Route path="employees" element={<Employees />} />
-
             <Route path="employees/addEmployee" element={<AddEmployee />} />
-
             <Route path="shifts" element={<Shifts />} />
             <Route path="offices" element={<Offices />} />
             <Route path="departments" element={<Departments />} />
+
             <Route path="reports" element={<Reports />} />
             <Route path="test" element={<Test />} />
           </Routes>

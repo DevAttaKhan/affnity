@@ -86,6 +86,18 @@ function Sidebar() {
           </Accordion.Header>
           <Accordion.Body></Accordion.Body>
         </Accordion.Item>
+        <Accordion.Item eventKey="6">
+          <Accordion.Header>
+            <Link to="leaveRequests" className="sidebar_link">
+              <div className="sidebar_icon">
+                <BoxIcon />
+              </div>
+              <span>Leave Request</span>
+              {/* <FontAwesomeIcon icon={faAngleDown} className="down_icon" /> */}
+            </Link>
+          </Accordion.Header>
+          <Accordion.Body></Accordion.Body>
+        </Accordion.Item>
         <Accordion.Item eventKey="7">
           <Accordion.Header>
             <Link to="advances" className="sidebar_link">
