@@ -8,7 +8,7 @@ export const getLeaveRequests = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/get_all_leave_requests',
+        `${process.env.REACT_APP_API_BASEURL}get_all_leave_requests`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -58,7 +58,7 @@ export const postLeaveRequest = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/leave_request/add',
+        `${process.env.REACT_APP_API_BASEURL}leave_request/add`,
         {
           type_name,
           active: '1',

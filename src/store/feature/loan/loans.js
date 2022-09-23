@@ -8,7 +8,7 @@ export const getLoans = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/get_loan_types',
+        `${process.env.REACT_APP_API_BASEURL}get_loan_types`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -58,7 +58,7 @@ export const postLoan = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/loan_type/add',
+        `${process.env.REACT_APP_API_BASEURL}loan_type/add`,
         {
           name,
           active: '1',

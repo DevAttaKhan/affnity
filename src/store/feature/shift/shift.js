@@ -8,7 +8,7 @@ export const getShifts = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/shift/get',
+        `${process.env.REACT_APP_API_BASEURL}shift/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -57,7 +57,7 @@ export const postShift = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/shift/add',
+        `${process.env.REACT_APP_API_BASEURL}shift/add`,
         {
           name,
           start_time,
