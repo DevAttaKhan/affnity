@@ -16,6 +16,10 @@ import {
   employeeTypeSlice,
   postEmployeeTypeSlice,
 } from './feature/employeeType/employeeType';
+import {
+  leaveRequestSlice,
+  postLeaveRequestSlice,
+} from './feature/leaveRequest/leaveRequest';
 
 export const store = configureStore({
   reducer: {
@@ -35,5 +39,7 @@ export const store = configureStore({
     postLoan: postLoanSlice,
     employeeTypes: employeeTypeSlice.reducer,
     postEmployeeType: postEmployeeTypeSlice.reducer,
+    leaveRequest: leaveRequestSlice,
+    postLeaveRequest: postLeaveRequestSlice,
   },
 });
