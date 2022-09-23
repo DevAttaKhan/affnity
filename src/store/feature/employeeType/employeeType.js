@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const getLoans = createAsyncThunk(
-  'loans/getData',
+export const getEmployeeTypes = createAsyncThunk(
+  'employeeTypes/getData',
   async (arg, { rejectWithValue }) => {
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/get_loan_types',
+        'http://savvy.developerpro.co/api/employee_type/get',
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -23,8 +23,8 @@ export const getLoans = createAsyncThunk(
   }
 );
 
-const loanSlice = createSlice({
-  name: 'loan',
+const employeeTypeSlice = createSlice({
+  name: 'employeeType',
   initialState: {
     data: '',
     isSuccess: false,
@@ -33,15 +33,15 @@ const loanSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [getLoans.pending]: (state) => {
+    [getEmployeeTypes.pending]: (state) => {
       state.loading = true;
     },
-    [getLoans.fulfilled]: (state, { payload }) => {
+    [getEmployeeTypes.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.data = payload;
       state.isSuccess = true;
     },
-    [getLoans.rejected]: (state, { payload }) => {
+    [getEmployeeTypes.rejected]: (state, { payload }) => {
       state.message = payload;
       state.loading = false;
       state.isSuccess = false;
@@ -49,18 +49,18 @@ const loanSlice = createSlice({
   },
 });
 
-export const postLoan = createAsyncThunk(
-  'loan/postData',
+export const postEmployeeType = createAsyncThunk(
+  'employeeType/postData',
   async (empData, { rejectWithValue }) => {
     try {
-      const { name } = empData;
+      const { type_name } = empData;
 
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/loan_type/add',
+        'http://savvy.developerpro.co/api/employeeType_type/add',
         {
-          name,
+          type_name,
           active: '1',
         },
         {
@@ -70,7 +70,7 @@ export const postLoan = createAsyncThunk(
         }
       );
       if (status) {
-        toast('Loan Added', {
+        toast('EmployeeType Added', {
           position: 'bottom-right',
           autoClose: 2500,
           hideProgressBar: false,
@@ -88,8 +88,8 @@ export const postLoan = createAsyncThunk(
   }
 );
 
-const postLoanSlice = createSlice({
-  name: 'postLoan',
+const postEmployeeTypeSlice = createSlice({
+  name: 'postEmployeeType',
   initialState: {
     data: '',
     isSuccess: false,
@@ -98,15 +98,15 @@ const postLoanSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [postLoan.pending]: (state) => {
+    [postEmployeeType.pending]: (state) => {
       state.loading = true;
     },
-    [postLoan.fulfilled]: (state, { payload }) => {
+    [postEmployeeType.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.data = payload;
       state.isSuccess = true;
     },
-    [postLoan.rejected]: (state, { payload }) => {
+    [postEmployeeType.rejected]: (state, { payload }) => {
       state.message = payload;
       state.loading = false;
       state.isSuccess = false;
@@ -114,4 +114,4 @@ const postLoanSlice = createSlice({
   },
 });
 
-export { loanSlice, postLoanSlice };
+export { employeeTypeSlice, postEmployeeTypeSlice };
