@@ -8,7 +8,7 @@ export const getLeaves = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/leave_categories/get',
+        `${process.env.REACT_APP_API_BASEURL}leave_categories/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -57,7 +57,7 @@ export const postLeave = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/add_leave_category',
+        `${process.env.REACT_APP_API_BASEURL}add_leave_category`,
         {
           category_name,
           no_of_days,

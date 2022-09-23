@@ -8,7 +8,7 @@ export const getEmployeeTypes = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/employee_type/get',
+        `${process.env.REACT_APP_API_BASEURL}employee_type/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -58,7 +58,7 @@ export const postEmployeeType = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/employee_type/add',
+        `${process.env.REACT_APP_API_BASEURL}employee_type/add`,
         {
           type_name,
           active: '1',

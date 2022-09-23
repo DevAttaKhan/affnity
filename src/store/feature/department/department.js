@@ -8,7 +8,7 @@ export const getDepartments = createAsyncThunk(
     try {
       const items = JSON.parse(localStorage.getItem('loginData'));
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/department/get',
+        `${process.env.REACT_APP_API_BASEURL}department/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -58,7 +58,7 @@ export const postDepartment = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/department/add',
+        `${process.env.REACT_APP_API_BASEURL}department/add`,
         {
           name,
           office_id,

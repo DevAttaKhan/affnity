@@ -1,34 +1,36 @@
-import React, { useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import SplashArt from "../../assets/Icons/SplashArt";
-import axios from 'axios'
-import "./style.scss";
+import SplashArt from '../../assets/Icons/SplashArt';
+import axios from 'axios';
+import './style.scss';
 
 const Intro = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://savvy.developerpro.co/api/login',{
-      email:credentials.email,
-      password:credentials.password
-    }).then(res=>{
-      const loginData = {
-        token:res.data.access_tokens,
-        empData: res.data.employee_detail
-      }
+    axios
+      .post(`${process.env.REACT_APP_API_BASEURL}login`, {
+        email: credentials.email,
+        password: credentials.password,
+      })
+      .then((res) => {
+        const loginData = {
+          token: res.data.access_tokens,
+          empData: res.data.employee_detail,
+        };
 
-      localStorage.setItem('loginData', JSON.stringify(loginData));
-      navigate("/dashboard/home");
+        localStorage.setItem('loginData', JSON.stringify(loginData));
+        navigate('/dashboard/home');
 
-//      context.dispatch({type:'login', payload:loginData})
-    })
+        //      context.dispatch({type:'login', payload:loginData})
+      });
     // if (
     //   credentials.email === "admin@gmail.com" &&
     //   credentials.password === "admin"

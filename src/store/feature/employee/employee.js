@@ -9,7 +9,7 @@ export const getEmployee = createAsyncThunk(
       const items = JSON.parse(localStorage.getItem('loginData'));
       //multi-level
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/employee/get',
+        `${process.env.REACT_APP_API_BASEURL}employee/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
@@ -74,7 +74,7 @@ export const postEmployee = createAsyncThunk(
         status,
         data: { employee },
       } = await axios.post(
-        'http://savvy.developerpro.co/api/employee/add',
+        `${process.env.REACT_APP_API_BASEURL}employee/add`,
         {
           user_id,
           office_id,
@@ -96,7 +96,7 @@ export const postEmployee = createAsyncThunk(
       if (status === 200 && employee) {
         const employee_id = employee.id;
         const res = await axios.post(
-          'http://savvy.developerpro.co/api/employee_details/add',
+          `${process.env.REACT_APP_API_BASEURL}employee_details/add`,
           {
             employee_id,
             father_name,
@@ -214,7 +214,7 @@ export const getEmployeeTypes = createAsyncThunk(
       const items = JSON.parse(localStorage.getItem('loginData'));
       //multi-level
       const { data: { response } = {} } = await axios.get(
-        'http://savvy.developerpro.co/api/employee_type/get',
+        `${process.env.REACT_APP_API_BASEURL}employee_type/get`,
         {
           headers: {
             Authorization: 'Bearer ' + items.token,
