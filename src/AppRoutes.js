@@ -21,6 +21,7 @@ import Attendence from './pages/Attendence/Attendence';
 import Expense from './pages/Expense/Expense';
 import Offices from './pages/Offices';
 import Departments from './pages/Departments';
+import EmployeeTypeConfig from './pages/EmpTypeConfig/Index';
 
 function AppRoutes() {
   const [sidebar, setSidebar] = useState(false);
@@ -81,6 +82,7 @@ function AppRoutes() {
             <Route path="expense" element={<Expense />} />
 
             <Route path="loan" element={<LoanConfig />} />
+            <Route path="employeeType" element={<EmployeeTypeConfig />} />
 
             <Route path="advances" element={<AdvancesConfig />} />
 

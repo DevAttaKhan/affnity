@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Form from '../Common/Form/Form';
 import CardContainer from '../Layout/CardContainer';
-import { postEmployeeType } from '../../store/feature/employeeType/employeeTypes';
+import { postEmployeeType } from '../../store/feature/employeeType/employeeType';
 const inputs = [
   {
     label: 'Employee Type Name',

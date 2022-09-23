@@ -3,7 +3,7 @@ import CardContainer from '../Layout/CardContainer';
 import Table from '../Table/Table';
 import EditeIcon from '../../assets/Icons/EditeIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployeeTypes } from '../../store/feature/employeeType/employeeTypes';
+import { getEmployeeTypes } from '../../store/feature/employeeType/employeeType';
 
 const columns = [
   { path: 'id', lable: 'S.NO' },
