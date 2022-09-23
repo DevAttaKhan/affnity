@@ -76,6 +76,18 @@ function Sidebar() {
         </Accordion.Item>
         <Accordion.Item eventKey="5">
           <Accordion.Header>
+            <Link to="employeeType" className="sidebar_link">
+              <div className="sidebar_icon">
+                <BoxIcon />
+              </div>
+              <span>Employee Type</span>
+              {/* <FontAwesomeIcon icon={faAngleDown} className="down_icon" /> */}
+            </Link>
+          </Accordion.Header>
+          <Accordion.Body></Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="7">
+          <Accordion.Header>
             <Link to="advances" className="sidebar_link">
               <div className="sidebar_icon">
                 <BoxIcon />
@@ -86,7 +98,7 @@ function Sidebar() {
           </Accordion.Header>
           <Accordion.Body></Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey="6">
+        <Accordion.Item eventKey="8">
           <Accordion.Header>
             <div className="sidebar_link">
               <div className="sidebar_icon">
@@ -141,7 +153,7 @@ function Sidebar() {
             </ul>
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey="7">
+        <Accordion.Item eventKey="9">
           <Accordion.Header>
             <Link to="reports" className="sidebar_link">
               <div className="sidebar_icon">

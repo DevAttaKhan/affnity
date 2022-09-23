@@ -58,7 +58,7 @@ export const postEmployeeType = createAsyncThunk(
       const { token } = JSON.parse(localStorage.getItem('loginData'));
 
       const { status } = await axios.post(
-        'http://savvy.developerpro.co/api/employeeType_type/add',
+        'http://savvy.developerpro.co/api/employee_type/add',
         {
           type_name,
           active: '1',
